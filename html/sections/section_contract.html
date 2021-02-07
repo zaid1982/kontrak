@@ -86,14 +86,21 @@
                                     <p class="font-small text-danger" id="txtSctContractCeilingYearlyLicenseErr"></p>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="md-form md-outline mt-0">
+                                    <input type="text" id="txtSctContractPeriodYear" class="form-control">
+                                    <label for="txtSctContractPeriodYear" id="lblSctContractPeriodYear">Jumlah Tahun Kontrak</label>
+                                    <p class="font-small text-danger" id="txtSctContractPeriodYearErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="md-form md-outline mt-0">
                                     <input type="text" id="txtSctContractPeriodStart" class="form-control datepicker" readonly>
                                     <label for="txtSctContractPeriodStart" id="lblSctContractPeriodStart">Tempoh Kontrak Dari</label>
                                     <p class="font-small text-danger" id="txtSctContractPeriodStartErr"></p>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="md-form md-outline mt-0">
                                     <input type="text" id="txtSctContractPeriodEnd" class="form-control datepicker" readonly>
                                     <label for="txtSctContractPeriodEnd" id="lblSctContractPeriodEnd">Tempoh Kontrak Hingga</label>
@@ -129,7 +136,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <p class="font-small font-weight-500 pl-2 mb-1">Service Level Aggreement (SLA) :  <a class="pl-3 sctIsEdit" id="btnSctSlaAdd"><i class="far fa-plus-square" data-toggle="tooltip" data-placement="top" title="Tambah"></i></a></p>
+                                <p class="font-weight-500 pl-2 mb-1">Service Level Aggreement (SLA) :  <a class="pl-3 sctIsEdit" id="btnSctSlaAdd"><i class="far fa-plus-square" data-toggle="tooltip" data-placement="top" title="Tambah"></i></a></p>
                                 <div class="table-responsive">
                                     <table id="dtSctSla" class="table table-hover table-sm table-condensed mb-0 display responsive">
                                         <thead>
@@ -176,44 +183,44 @@
             <div class="card z-depth-4 mb-4">
                 <div class="card-body p-0">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <ul class="nav md-pills pills-blue-grey flex-column border-right" role="tablist">
                                 <li class="nav-item border-bottom p-1">
-                                    <a class="nav-link active" data-toggle="tab" href="#panelSct1" role="tab">Jadual Keseluruhan Tuntutan</a>
+                                    <a class="nav-link font-small-90 active" data-toggle="tab" href="#panelSct1" role="tab">Jadual Keseluruhan Tuntutan</a>
                                 </li>
                                 <li class="nav-item border-bottom p-1">
-                                    <a class="nav-link" data-toggle="tab" href="#panelSct2" role="tab">Tututan Alat Ganti</a>
+                                    <a class="nav-link font-small-90" data-toggle="tab" href="#panelSct2" role="tab">Tututan Alat Ganti</a>
                                 </li>
                                 <li class="nav-item border-bottom p-1">
-                                    <a class="nav-link" data-toggle="tab" href="#panelSct3" role="tab">Tututan Penggantian Baru</a>
+                                    <a class="nav-link font-small-90" data-toggle="tab" href="#panelSct3" role="tab">Tututan Penggantian Baru</a>
                                 </li>
                                 <li class="nav-item border-bottom p-1">
-                                    <a class="nav-link" data-toggle="tab" href="#panelSct4" role="tab">Jadual Tuntutan CM</a>
+                                    <a class="nav-link font-small-90" data-toggle="tab" href="#panelSct4" role="tab">Jadual Tuntutan CM</a>
                                 </li>
                                 <li class="nav-item border-bottom p-1">
-                                    <a class="nav-link" data-toggle="tab" href="#panelSct5" role="tab">Jadual Tuntutan PM</a>
+                                    <a class="nav-link font-small-90" data-toggle="tab" href="#panelSct5" role="tab">Jadual Tuntutan PM</a>
                                 </li>
                                 <li class="nav-item border-bottom p-1">
-                                    <a class="nav-link" data-toggle="tab" href="#panelSct6" role="tab">Jadual Claim Mandays</a>
+                                    <a class="nav-link font-small-90" data-toggle="tab" href="#panelSct6" role="tab">Jadual Claim Mandays</a>
                                 </li>
                                 <li class="nav-item border-bottom p-1">
-                                    <a class="nav-link" data-toggle="tab" href="#panelSct7" role="tab">Jadual Claim Lesen</a>
+                                    <a class="nav-link font-small-90" data-toggle="tab" href="#panelSct7" role="tab">Jadual Claim Lesen</a>
                                 </li>
                                 <li class="nav-item border-bottom p-1">
-                                    <a class="nav-link" data-toggle="tab" href="#panelSct8" role="tab">Laporan Kemajuan Kontrak</a>
+                                    <a class="nav-link font-small-90" data-toggle="tab" href="#panelSct8" role="tab">Laporan Kemajuan Kontrak</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-10">
                             <div class="tab-content vertical px-0">
                                 <div class="tab-pane fade in show active py-3" id="panelSct1" role="tabpanel">
                                     <div class="table-responsive">
-                                        <table id="dtSctClaimAllData" class="table table-hover table-sm table-condensed table-striped mb-0 display responsive" style="width: 100%">
+                                        <table id="dtSctClaimAll" class="table table-hover table-sm table-condensed table-striped mb-0 display responsive" style="width: 100%">
                                             <thead>
                                             <tr class="th-strong">
                                                 <th style="width: 20px">#</th>
                                                 <th>Jenis Penyelenggaraan</th>
-                                                <th>Tarikh Invois</th>
+                                                <th style="width: 65px; min-width: 65px">Tarikh Invois</th>
                                                 <th>No Invois</th>
                                                 <th>Jumlah Invois</th>
                                                 <th>Jumlah Terima Bayaran</th>
@@ -243,12 +250,12 @@
                                 <div class="tab-pane fade py-3" id="panelSct4" role="tabpanel">
                                     <button id="btnSctClaimCmAdd" class="btn btn-outline-success waves-effect mb-4">Tambah Tuntutan CM  <i class="fas fa-plus ml-1"></i></button>
                                     <div class="table-responsive">
-                                        <table id="dtSctClaimCmData" class="table table-hover table-sm table-condensed table-striped mb-0 display responsive" style="width: 100%">
+                                        <table id="dtSctClaimCm" class="table table-hover table-sm table-condensed table-striped mb-0 display responsive" style="width: 100%">
                                             <thead>
                                             <tr class="th-strong">
                                                 <th style="width: 20px">#</th>
                                                 <th>Jenis Penyelenggaraan</th>
-                                                <th>Tarikh Invois</th>
+                                                <th style="width: 65px; min-width: 65px">Tarikh Invois</th>
                                                 <th>No Invois</th>
                                                 <th>Jumlah Invois</th>
                                                 <th>Jumlah Terima Bayaran</th>
@@ -264,24 +271,72 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade py-3" id="panelSct5" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h5>Panel 5</h5>
-                                        </div>
+                                    <button id="btnSctClaimPmAdd" class="btn btn-outline-success waves-effect mb-4">Tambah Tuntutan PM  <i class="fas fa-plus ml-1"></i></button>
+                                    <div class="table-responsive">
+                                        <table id="dtSctClaimPm" class="table table-hover table-sm table-condensed table-striped mb-0 display responsive" style="width: 100%">
+                                            <thead>
+                                            <tr class="th-strong">
+                                                <th style="width: 20px">#</th>
+                                                <th>Jenis Penyelenggaraan</th>
+                                                <th style="width: 65px; min-width: 65px">Tarikh Invois</th>
+                                                <th>No Invois</th>
+                                                <th>Jumlah Invois</th>
+                                                <th>Jumlah Terima Bayaran</th>
+                                                <th>Bayaran Tertunggak</th>
+                                                <th>Baki Siling</th>
+                                                <th>Baki Siling %</th>
+                                                <th>Baki Siling Tahunan</th>
+                                                <th>Baki Siling Tahunan %</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade py-3" id="panelSct6" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h5>Panel 6</h5>
-                                        </div>
+                                    <button id="btnSctClaimMandaysAdd" class="btn btn-outline-success waves-effect mb-4">Tambah Tuntutan Mandays  <i class="fas fa-plus ml-1"></i></button>
+                                    <div class="table-responsive">
+                                        <table id="dtSctClaimMandays" class="table table-hover table-sm table-condensed table-striped mb-0 display responsive" style="width: 100%">
+                                            <thead>
+                                            <tr class="th-strong">
+                                                <th style="width: 20px">#</th>
+                                                <th>Jenis Penyelenggaraan</th>
+                                                <th style="width: 65px; min-width: 65px">Tarikh Invois</th>
+                                                <th>No Invois</th>
+                                                <th>Jumlah Invois</th>
+                                                <th>Jumlah Terima Bayaran</th>
+                                                <th>Bayaran Tertunggak</th>
+                                                <th>Baki Siling</th>
+                                                <th>Baki Siling %</th>
+                                                <th>Baki Siling Tahunan</th>
+                                                <th>Baki Siling Tahunan %</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade py-3" id="panelSct7" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h5>Panel 7</h5>
-                                        </div>
+                                    <button id="btnSctClaimLesenAdd" class="btn btn-outline-success waves-effect mb-4">Tambah Tuntutan Lesen  <i class="fas fa-plus ml-1"></i></button>
+                                    <div class="table-responsive">
+                                        <table id="dtSctClaimLesen" class="table table-hover table-sm table-condensed table-striped mb-0 display responsive" style="width: 100%">
+                                            <thead>
+                                            <tr class="th-strong">
+                                                <th style="width: 20px">#</th>
+                                                <th>Jenis Penyelenggaraan</th>
+                                                <th style="width: 65px; min-width: 65px">Tarikh Invois</th>
+                                                <th>No Invois</th>
+                                                <th>Jumlah Invois</th>
+                                                <th>Jumlah Terima Bayaran</th>
+                                                <th>Bayaran Tertunggak</th>
+                                                <th>Baki Siling</th>
+                                                <th>Baki Siling %</th>
+                                                <th>Baki Siling Tahunan</th>
+                                                <th>Baki Siling Tahunan %</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade py-3" id="panelSct8" role="tabpanel">

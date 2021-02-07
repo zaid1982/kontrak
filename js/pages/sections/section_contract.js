@@ -8,8 +8,12 @@ function SectionContract() {
     let oTableSctSla;
     let oTableSctClaimAll;
     let oTableSctClaimCm;
+    let oTableSctClaimPm;
+    let oTableSctClaimMandays;
+    let oTableSctClaimLesen;
     let contractId;
     let modalContractSlaClass;
+    let modalContractClaimClass;
 
     this.init = function () {
         $('#sectionContract').hide();
@@ -125,6 +129,16 @@ function SectionContract() {
                 }
             },
             {
+                field_id: 'txtSctContractPeriodYear',
+                type: 'text',
+                name: 'Jumlah Tahun Kontrak',
+                validator: {
+                    digit: true,
+                    min: 0,
+                    max: 10
+                }
+            },
+            {
                 field_id: 'txtSctContractPeriodStart',
                 type: 'text',
                 name: 'Tempoh Kontrak Dari',
@@ -200,6 +214,7 @@ function SectionContract() {
                             contractCeilingYearlyPm: $('#txtSctContractCeilingYearlyPm').val(),
                             contractCeilingYearlyMandays: $('#txtSctContractCeilingYearlyMandays').val(),
                             contractCeilingYearlyLicense: $('#txtSctContractCeilingYearlyLicense').val(),
+                            contractPeriodYear: $('#txtSctContractPeriodYear').val(),
                             contractPeriodStart: mzConvertDate($('#txtSctContractPeriodStart').val()),
                             contractPeriodEnd: mzConvertDate($('#txtSctContractPeriodEnd').val()),
                             contractWarranty: $('#txtSctContractWarranty').val(),
@@ -238,6 +253,7 @@ function SectionContract() {
         oTableSctSlaTbody.delegate('tr', 'click', function () {
             const data = oTableSctSla.row(this).data();
             modalContractSlaClass.setContractSlaId(data['contractSlaId']);
+            modalContractSlaClass.setContractId(contractId);
             modalContractSlaClass.setContractNo($('#txtSctContractNo').val());
             modalContractSlaClass.setContractName($('#txaSctContractName').val());
             modalContractSlaClass.edit();
@@ -247,7 +263,7 @@ function SectionContract() {
             $cell.css( 'cursor', 'pointer' );
         });
 
-        oTableSctClaimCm =  $('#dtSctClaimCmData').DataTable({
+        oTableSctClaimAll = $('#dtSctClaimAll').DataTable({
             bLengthChange: false,
             bFilter: false,
             language: _DATATABLE_LANGUAGE,
@@ -276,12 +292,223 @@ function SectionContract() {
                 {mData: 'contractClaimInvoiceAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
                 {mData: 'contractClaimReceivedAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
                 {mData: 'contractClaimOverdueAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
-                {mData: null, sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
-                {mData: null, sClass: 'text-center', mRender: function (data) { return mzFormatNumber(data,2)}},
-                {mData: null, sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
-                {mData: null, sClass: 'text-center', mRender: function (data) { return mzFormatNumber(data,2)}}
-
+                {mData: 'ceilingBalance', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'ceilingBalancePerc', sClass: 'text-center', mRender: function (data) { return mzFormatNumber(data,1)}},
             ]
+        });
+        let oTableSctClaimAllTbody = $('#dtSctClaimAll tbody');
+        oTableSctClaimAllTbody.delegate('tr', 'click', function () {
+            const data = oTableSctClaimAll.row(this).data();
+            modalContractClaimClass.setContractClaimId(data['contractClaimId']);
+            modalContractClaimClass.setContractId(contractId);
+            modalContractClaimClass.setContractClaimType(data['contractClaimType']);
+            modalContractClaimClass.setContractNo($('#txtSctContractNo').val());
+            modalContractClaimClass.setContractName($('#txaSctContractName').val());
+            modalContractClaimClass.edit();
+        });
+        oTableSctClaimAllTbody.delegate('tr', 'mouseenter', function (evt) {
+            const $cell = $(evt.target).closest('td');
+            $cell.css( 'cursor', 'pointer' );
+        });
+
+        oTableSctClaimCm = $('#dtSctClaimCm').DataTable({
+            bLengthChange: false,
+            bFilter: false,
+            language: _DATATABLE_LANGUAGE,
+            aaSorting: [1, 'asc'],
+            bPaginate: false,
+            ordering: false,
+            autoWidth: false,
+            fnRowCallback : function(nRow, aData, iDisplayIndex){
+                const info = $(this).DataTable().page.info();
+                $('td', nRow).eq(0).html(info.start + (iDisplayIndex + 1));
+            },
+            dom: "<'row'<'col-sm-12'B>>" +
+                "<'row'<'col-sm-12'tr>>",
+            buttons: [
+                { extend: 'colvis', text:'<i class="fas fa-columns"></i>', className: 'btn btn-sm px-2 mx-1 mb-1', titleAttr: 'Pilihan Kolum'},
+                { extend: 'print', className: 'btn btn-outline-blue-grey btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-print"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Cetak', exportOptions: mzExportOpt},
+                { extend: 'copy', className: 'btn btn-outline-blue btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-copy"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Copy', exportOptions: mzExportOpt},
+                { extend: 'excelHtml5', className: 'btn btn-outline-green btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-excel"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Excel', exportOptions: mzExportOpt},
+                { extend: 'pdfHtml5', className: 'btn btn-outline-red btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-pdf"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'PDF', orientation: 'landscape', exportOptions: mzExportOpt}
+            ],
+            aoColumns: [
+                {mData: null, sClass: 'text-center', bSortable: false},
+                {mData: 'contractClaimDesc'},
+                {mData: 'contractClaimInvoiceDate', sClass: 'text-center'},
+                {mData: 'contractClaimInvoiceNo', sClass: 'text-center'},
+                {mData: 'contractClaimInvoiceAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimReceivedAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimOverdueAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'ceilingBalance', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'ceilingBalancePerc', sClass: 'text-center', mRender: function (data) { return mzFormatNumber(data,1)}},
+                {mData: 'ceilingBalanceYear', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'ceilingBalanceYearPerc', sClass: 'text-center', mRender: function (data) { return mzFormatNumber(data,1)}}
+            ]
+        });
+        let oTableSctClaimCmTbody = $('#dtSctClaimCm tbody');
+        oTableSctClaimCmTbody.delegate('tr', 'click', function () {
+            const data = oTableSctClaimCm.row(this).data();
+            modalContractClaimClass.setContractClaimId(data['contractClaimId']);
+            modalContractClaimClass.setContractId(contractId);
+            modalContractClaimClass.setContractClaimType('CM');
+            modalContractClaimClass.setContractNo($('#txtSctContractNo').val());
+            modalContractClaimClass.setContractName($('#txaSctContractName').val());
+            modalContractClaimClass.edit();
+        });
+        oTableSctClaimCmTbody.delegate('tr', 'mouseenter', function (evt) {
+            const $cell = $(evt.target).closest('td');
+            $cell.css( 'cursor', 'pointer' );
+        });
+
+        oTableSctClaimPm = $('#dtSctClaimPm').DataTable({
+            bLengthChange: false,
+            bFilter: false,
+            language: _DATATABLE_LANGUAGE,
+            aaSorting: [1, 'asc'],
+            bPaginate: false,
+            ordering: false,
+            autoWidth: false,
+            fnRowCallback : function(nRow, aData, iDisplayIndex){
+                const info = $(this).DataTable().page.info();
+                $('td', nRow).eq(0).html(info.start + (iDisplayIndex + 1));
+            },
+            dom: "<'row'<'col-sm-12'B>>" +
+                "<'row'<'col-sm-12'tr>>",
+            buttons: [
+                { extend: 'colvis', text:'<i class="fas fa-columns"></i>', className: 'btn btn-sm px-2 mx-1 mb-1', titleAttr: 'Pilihan Kolum'},
+                { extend: 'print', className: 'btn btn-outline-blue-grey btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-print"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Cetak', exportOptions: mzExportOpt},
+                { extend: 'copy', className: 'btn btn-outline-blue btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-copy"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Copy', exportOptions: mzExportOpt},
+                { extend: 'excelHtml5', className: 'btn btn-outline-green btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-excel"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Excel', exportOptions: mzExportOpt},
+                { extend: 'pdfHtml5', className: 'btn btn-outline-red btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-pdf"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'PDF', orientation: 'landscape', exportOptions: mzExportOpt}
+            ],
+            aoColumns: [
+                {mData: null, sClass: 'text-center', bSortable: false},
+                {mData: 'contractClaimDesc'},
+                {mData: 'contractClaimInvoiceDate', sClass: 'text-center'},
+                {mData: 'contractClaimInvoiceNo', sClass: 'text-center'},
+                {mData: 'contractClaimInvoiceAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimReceivedAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimOverdueAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'ceilingBalance', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'ceilingBalancePerc', sClass: 'text-center', mRender: function (data) { return mzFormatNumber(data,1)}},
+                {mData: 'ceilingBalanceYear', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'ceilingBalanceYearPerc', sClass: 'text-center', mRender: function (data) { return mzFormatNumber(data,1)}}
+            ]
+        });
+        let oTableSctClaimPmTbody = $('#dtSctClaimPm tbody');
+        oTableSctClaimPmTbody.delegate('tr', 'click', function () {
+            const data = oTableSctClaimPm.row(this).data();
+            modalContractClaimClass.setContractClaimId(data['contractClaimId']);
+            modalContractClaimClass.setContractId(contractId);
+            modalContractClaimClass.setContractClaimType('PM');
+            modalContractClaimClass.setContractNo($('#txtSctContractNo').val());
+            modalContractClaimClass.setContractName($('#txaSctContractName').val());
+            modalContractClaimClass.edit();
+        });
+        oTableSctClaimPmTbody.delegate('tr', 'mouseenter', function (evt) {
+            const $cell = $(evt.target).closest('td');
+            $cell.css( 'cursor', 'pointer' );
+        });
+
+        oTableSctClaimMandays = $('#dtSctClaimMandays').DataTable({
+            bLengthChange: false,
+            bFilter: false,
+            language: _DATATABLE_LANGUAGE,
+            aaSorting: [1, 'asc'],
+            bPaginate: false,
+            ordering: false,
+            autoWidth: false,
+            fnRowCallback : function(nRow, aData, iDisplayIndex){
+                const info = $(this).DataTable().page.info();
+                $('td', nRow).eq(0).html(info.start + (iDisplayIndex + 1));
+            },
+            dom: "<'row'<'col-sm-12'B>>" +
+                "<'row'<'col-sm-12'tr>>",
+            buttons: [
+                { extend: 'colvis', text:'<i class="fas fa-columns"></i>', className: 'btn btn-sm px-2 mx-1 mb-1', titleAttr: 'Pilihan Kolum'},
+                { extend: 'print', className: 'btn btn-outline-blue-grey btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-print"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Cetak', exportOptions: mzExportOpt},
+                { extend: 'copy', className: 'btn btn-outline-blue btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-copy"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Copy', exportOptions: mzExportOpt},
+                { extend: 'excelHtml5', className: 'btn btn-outline-green btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-excel"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Excel', exportOptions: mzExportOpt},
+                { extend: 'pdfHtml5', className: 'btn btn-outline-red btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-pdf"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'PDF', orientation: 'landscape', exportOptions: mzExportOpt}
+            ],
+            aoColumns: [
+                {mData: null, sClass: 'text-center', bSortable: false},
+                {mData: 'contractClaimDesc'},
+                {mData: 'contractClaimInvoiceDate', sClass: 'text-center'},
+                {mData: 'contractClaimInvoiceNo', sClass: 'text-center'},
+                {mData: 'contractClaimInvoiceAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimReceivedAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimOverdueAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'ceilingBalance', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'ceilingBalancePerc', sClass: 'text-center', mRender: function (data) { return mzFormatNumber(data,1)}},
+                {mData: 'ceilingBalanceYear', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'ceilingBalanceYearPerc', sClass: 'text-center', mRender: function (data) { return mzFormatNumber(data,1)}}
+            ]
+        });
+        let oTableSctClaimMandaysTbody = $('#dtSctClaimMandays tbody');
+        oTableSctClaimMandaysTbody.delegate('tr', 'click', function () {
+            const data = oTableSctClaimMandays.row(this).data();
+            modalContractClaimClass.setContractClaimId(data['contractClaimId']);
+            modalContractClaimClass.setContractId(contractId);
+            modalContractClaimClass.setContractClaimType('Mandays');
+            modalContractClaimClass.setContractNo($('#txtSctContractNo').val());
+            modalContractClaimClass.setContractName($('#txaSctContractName').val());
+            modalContractClaimClass.edit();
+        });
+        oTableSctClaimMandaysTbody.delegate('tr', 'mouseenter', function (evt) {
+            const $cell = $(evt.target).closest('td');
+            $cell.css( 'cursor', 'pointer' );
+        });
+
+        oTableSctClaimLesen = $('#dtSctClaimLesen').DataTable({
+            bLengthChange: false,
+            bFilter: false,
+            language: _DATATABLE_LANGUAGE,
+            aaSorting: [1, 'asc'],
+            bPaginate: false,
+            ordering: false,
+            autoWidth: false,
+            fnRowCallback : function(nRow, aData, iDisplayIndex){
+                const info = $(this).DataTable().page.info();
+                $('td', nRow).eq(0).html(info.start + (iDisplayIndex + 1));
+            },
+            dom: "<'row'<'col-sm-12'B>>" +
+                "<'row'<'col-sm-12'tr>>",
+            buttons: [
+                { extend: 'colvis', text:'<i class="fas fa-columns"></i>', className: 'btn btn-sm px-2 mx-1 mb-1', titleAttr: 'Pilihan Kolum'},
+                { extend: 'print', className: 'btn btn-outline-blue-grey btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-print"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Cetak', exportOptions: mzExportOpt},
+                { extend: 'copy', className: 'btn btn-outline-blue btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-copy"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Copy', exportOptions: mzExportOpt},
+                { extend: 'excelHtml5', className: 'btn btn-outline-green btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-excel"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Excel', exportOptions: mzExportOpt},
+                { extend: 'pdfHtml5', className: 'btn btn-outline-red btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-pdf"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'PDF', orientation: 'landscape', exportOptions: mzExportOpt}
+            ],
+            aoColumns: [
+                {mData: null, sClass: 'text-center', bSortable: false},
+                {mData: 'contractClaimDesc'},
+                {mData: 'contractClaimInvoiceDate', sClass: 'text-center'},
+                {mData: 'contractClaimInvoiceNo', sClass: 'text-center'},
+                {mData: 'contractClaimInvoiceAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimReceivedAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimOverdueAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'ceilingBalance', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'ceilingBalancePerc', sClass: 'text-center', mRender: function (data) { return mzFormatNumber(data,1)}},
+                {mData: 'ceilingBalanceYear', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'ceilingBalanceYearPerc', sClass: 'text-center', mRender: function (data) { return mzFormatNumber(data,1)}}
+            ]
+        });
+        let oTableSctClaimLesenTbody = $('#dtSctClaimLesen tbody');
+        oTableSctClaimLesenTbody.delegate('tr', 'click', function () {
+            const data = oTableSctClaimLesen.row(this).data();
+            modalContractClaimClass.setContractClaimId(data['contractClaimId']);
+            modalContractClaimClass.setContractId(contractId);
+            modalContractClaimClass.setContractClaimType('Lesen');
+            modalContractClaimClass.setContractNo($('#txtSctContractNo').val());
+            modalContractClaimClass.setContractName($('#txaSctContractName').val());
+            modalContractClaimClass.edit();
+        });
+        oTableSctClaimLesenTbody.delegate('tr', 'mouseenter', function (evt) {
+            const $cell = $(evt.target).closest('td');
+            $cell.css( 'cursor', 'pointer' );
         });
 
         $('#btnSctSlaAdd').on('click', function () {
@@ -295,6 +522,82 @@ function SectionContract() {
                     modalContractSlaClass.setContractNo($('#txtSctContractNo').val());
                     modalContractSlaClass.setContractName($('#txaSctContractName').val());
                     modalContractSlaClass.add();
+                } catch (e) {
+                    toastr['error'](e.message, _ALERT_TITLE_ERROR);
+                }
+                HideLoader();
+            }, 200);
+        });
+
+        $('#btnSctClaimCmAdd').on('click', function () {
+            ShowLoader();
+            setTimeout(function () {
+                try {
+                    if (contractId === '') {
+                        contractId = mzAjaxRequest('contract', 'POST');
+                    }
+                    modalContractClaimClass.setContractId(contractId);
+                    modalContractClaimClass.setContractClaimType('CM');
+                    modalContractClaimClass.setContractNo($('#txtSctContractNo').val());
+                    modalContractClaimClass.setContractName($('#txaSctContractName').val());
+                    modalContractClaimClass.add();
+                } catch (e) {
+                    toastr['error'](e.message, _ALERT_TITLE_ERROR);
+                }
+                HideLoader();
+            }, 200);
+        });
+
+        $('#btnSctClaimPmAdd').on('click', function () {
+            ShowLoader();
+            setTimeout(function () {
+                try {
+                    if (contractId === '') {
+                        contractId = mzAjaxRequest('contract', 'POST');
+                    }
+                    modalContractClaimClass.setContractId(contractId);
+                    modalContractClaimClass.setContractClaimType('PM');
+                    modalContractClaimClass.setContractNo($('#txtSctContractNo').val());
+                    modalContractClaimClass.setContractName($('#txaSctContractName').val());
+                    modalContractClaimClass.add();
+                } catch (e) {
+                    toastr['error'](e.message, _ALERT_TITLE_ERROR);
+                }
+                HideLoader();
+            }, 200);
+        });
+
+        $('#btnSctClaimMandaysAdd').on('click', function () {
+            ShowLoader();
+            setTimeout(function () {
+                try {
+                    if (contractId === '') {
+                        contractId = mzAjaxRequest('contract', 'POST');
+                    }
+                    modalContractClaimClass.setContractId(contractId);
+                    modalContractClaimClass.setContractClaimType('Mandays');
+                    modalContractClaimClass.setContractNo($('#txtSctContractNo').val());
+                    modalContractClaimClass.setContractName($('#txaSctContractName').val());
+                    modalContractClaimClass.add();
+                } catch (e) {
+                    toastr['error'](e.message, _ALERT_TITLE_ERROR);
+                }
+                HideLoader();
+            }, 200);
+        });
+
+        $('#btnSctClaimLesenAdd').on('click', function () {
+            ShowLoader();
+            setTimeout(function () {
+                try {
+                    if (contractId === '') {
+                        contractId = mzAjaxRequest('contract', 'POST');
+                    }
+                    modalContractClaimClass.setContractId(contractId);
+                    modalContractClaimClass.setContractClaimType('Lesen');
+                    modalContractClaimClass.setContractNo($('#txtSctContractNo').val());
+                    modalContractClaimClass.setContractName($('#txaSctContractName').val());
+                    modalContractClaimClass.add();
                 } catch (e) {
                     toastr['error'](e.message, _ALERT_TITLE_ERROR);
                 }
@@ -340,6 +643,7 @@ function SectionContract() {
                 mzSetFieldValue('SctContractCeilingYearlyPm', contract['contractCeilingYearlyPm'], 'text');
                 mzSetFieldValue('SctContractCeilingYearlyMandays', contract['contractCeilingYearlyMandays'], 'text');
                 mzSetFieldValue('SctContractCeilingYearlyLicense', contract['contractCeilingYearlyLicense'], 'text');
+                mzSetFieldValue('SctContractPeriodYear', contract['contractPeriodYear'], 'text');
                 mzSetFieldValue('SctContractPeriodStart', contract['contractPeriodStart'], 'date');
                 mzSetFieldValue('SctContractPeriodEnd', contract['contractPeriodEnd'], 'date');
                 mzSetFieldValue('SctContractWarranty', contract['contractWarranty'], 'text');
@@ -349,7 +653,9 @@ function SectionContract() {
 
                 self.setMainInfo();
                 self.genTableSla();
+                self.genTableClaimAll();
                 self.genTableClaimCm();
+                self.genTableClaimPm();
                 classFrom.hideMain();
                 $('#sectionContract').show();
                 self.setChartHeight();
@@ -396,12 +702,48 @@ function SectionContract() {
         }
     };
 
+    this.genTableClaimAll = function () {
+        if (contractId !== '') {
+            const dataDb = mzAjaxRequest('contract_claim/all/'+contractId, 'GET');
+            oTableSctClaimAll.clear().rows.add(dataDb).draw();
+        } else {
+            oTableSctClaimAll.clear().draw();
+        }
+    };
+
     this.genTableClaimCm = function () {
         if (contractId !== '') {
-            const dataDb = mzAjaxRequest('contract_claim/Cm/'+contractId, 'GET');
+            const dataDb = mzAjaxRequest('contract_claim/CM/'+contractId, 'GET');
             oTableSctClaimCm.clear().rows.add(dataDb).draw();
         } else {
             oTableSctClaimCm.clear().draw();
+        }
+    };
+
+    this.genTableClaimPm = function () {
+        if (contractId !== '') {
+            const dataDb = mzAjaxRequest('contract_claim/PM/'+contractId, 'GET');
+            oTableSctClaimPm.clear().rows.add(dataDb).draw();
+        } else {
+            oTableSctClaimPm.clear().draw();
+        }
+    };
+
+    this.genTableClaimMandays = function () {
+        if (contractId !== '') {
+            const dataDb = mzAjaxRequest('contract_claim/Mandays/'+contractId, 'GET');
+            oTableSctClaimMandays.clear().rows.add(dataDb).draw();
+        } else {
+            oTableSctClaimMandays.clear().draw();
+        }
+    };
+
+    this.genTableClaimLesen = function () {
+        if (contractId !== '') {
+            const dataDb = mzAjaxRequest('contract_claim/Lesen/'+contractId, 'GET');
+            oTableSctClaimLesen.clear().rows.add(dataDb).draw();
+        } else {
+            oTableSctClaimLesen.clear().draw();
         }
     };
 
@@ -843,5 +1185,9 @@ function SectionContract() {
 
     this.setModalContractSlaClass = function (_modalContractSlaClass) {
         modalContractSlaClass = _modalContractSlaClass;
+    };
+
+    this.setModalContractClaimClass = function (_modalContractClaimClass) {
+        modalContractClaimClass = _modalContractClaimClass;
     };
 }

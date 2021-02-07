@@ -14,7 +14,7 @@ function ModalContractSla() {
             {
                 field_id: 'txaMcsDesc',
                 type: 'text',
-                name: 'Tanda',
+                name: 'Penerangan SLA',
                 validator: {
                     notEmpty: true,
                     maxLength: 1000

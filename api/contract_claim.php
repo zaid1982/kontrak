@@ -49,7 +49,7 @@ try {
 
     if ('GET' === $request_method) {
         if (isset ($urlArr[1])) {
-            if ($urlArr[1] === 'all' || $urlArr[1] === 'Cm' || $urlArr[1] === 'Pm' || $urlArr[1] === 'Mandays' || $urlArr[1] === 'Lesen') {
+            if ($urlArr[1] === 'all' || $urlArr[1] === 'CM' || $urlArr[1] === 'PM' || $urlArr[1] === 'Mandays' || $urlArr[1] === 'Lesen') {
                 if (!isset ($urlArr[1])) {
                     throw new Exception('[' . __LINE__ . '] - List type empty');
                 }
@@ -72,6 +72,7 @@ try {
         $is_transaction = true;
         $param = $_POST;
 
+        $param['contractClaimUpdatedBy'] = $userId;
         $fn_contract_claim->add_contract_claim($param);
         $form_data['errmsg'] = $constant::SUC_CONTRACT_CLAIM_ADD;
 

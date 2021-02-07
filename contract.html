@@ -15,14 +15,14 @@
     <!-- DataTables.net -->
     <link rel="stylesheet" type="text/css" href="js/vendor/datatables/css/dataTables.bootstrap4.min.css"/>
     <link rel="stylesheet" type="text/css" href="js/vendor/datatables/css/button.dataTables.min.css"/>
-    <link href="css/style.css?rnd=1" rel="stylesheet">
+    <link href="css/style.css?rnd=2" rel="stylesheet">
     <style>
 
     </style>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 </head>
 
-<body class="fixed-sn mdb-skin">
+<body class="fixed-sn white-skin">
 <header>
     <div class="includeHtml" id="h-b-nav_left"></div>
     <div class="includeHtml" id="h-b-nav_top"></div>
@@ -35,7 +35,7 @@
                 Senarai Kontrak
             </h5>
         </nav>
-        <nav class="navbar navbar-expand navbar-dark blue-grey darken-1 z-depth-4 mt-4 sectionCtrMain">
+       <!-- <nav class="navbar navbar-expand navbar-dark blue-grey darken-1 z-depth-4 mt-4 sectionCtrMain">
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown mr-2 active">
@@ -46,11 +46,11 @@
                 </ul>
             </div>
             <a class="navbar-brand d-none d-md-block lblCtrSelected" href="#"></a>
-        </nav>
+        </nav>-->
 
         <section class="mb-4 sectionCtrMain">
             <div class="row mt-4">
-                <div class="col-xl-3 col-md-6 mb-4">
+                <!--<div class="col-xl-3 col-md-6 mb-4">
                     <div class="card card-cascade cascading-admin-card card-image z-depth-4" style="background-image: url('img/background/pen_book.jpg');">
                         <div class="rgba-white-strong">
                             <div class="admin-up">
@@ -118,7 +118,7 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="col-lg-5 ">
+                <div class="col-lg-5 ">
                     <div class="card z-depth-4 mb-4" style="width: 100%">
                         <div class="card-body p-0">
                             <div id="chartCtrType" style="height: 382px; margin: 0;"></div>
@@ -207,6 +207,7 @@
     <div class="includeHtml" id="h-m-modal_pdf"></div>
     <div class="includeHtml" id="h-m-modal_confirm_delete"></div>
     <div class="includeHtml" id="h-m-modal_contract_sla"></div>
+    <div class="includeHtml" id="h-m-modal_contract_claim"></div>
 </main>
 
 <!-- SCRIPTS -->
@@ -247,6 +248,7 @@
     let versionLocal_;
     let modalConfirmDeleteClass_;
     let modalContractSlaClass_;
+    let modalContractClaimClass_;
     let sectionContractClass_;
     let contractClass_;
 
@@ -260,6 +262,7 @@
 
                 modalConfirmDeleteClass_ = new ModalConfirmDelete();
                 modalContractSlaClass_ = new ModalContractSla();
+                modalContractClaimClass_ = new ModalContractClaim();
                 sectionContractClass_ = new SectionContract();
                 contractClass_ = new MainContract();
 
@@ -269,7 +272,12 @@
                 modalContractSlaClass_.setClassFrom(sectionContractClass_);
                 modalContractSlaClass_.init();
 
+                modalContractClaimClass_.setModalConfirmDeleteClass(modalConfirmDeleteClass_);
+                modalContractClaimClass_.setClassFrom(sectionContractClass_);
+                modalContractClaimClass_.init();
+
                 sectionContractClass_.setModalContractSlaClass(modalContractSlaClass_);
+                sectionContractClass_.setModalContractClaimClass(modalContractClaimClass_);
                 sectionContractClass_.setClassFrom(contractClass_);
                 sectionContractClass_.init();
 
@@ -288,6 +296,7 @@
     document.write('<scr' + 'ipt src="js/pages/modals/modal_change_password.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
     document.write('<scr' + 'ipt src="js/pages/modals/modal_confirm_delete.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
     document.write('<scr' + 'ipt src="js/pages/modals/modal_contract_sla.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+    document.write('<scr' + 'ipt src="js/pages/modals/modal_contract_claim.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
     document.write('<scr' + 'ipt src="js/pages/sections/section_contract.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
     document.write('<scr' + 'ipt src="js/pages/mains/main_contract.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
 

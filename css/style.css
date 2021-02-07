@@ -20,6 +20,9 @@
 .th-strong th {
     font-weight: 900 !important;
 }
+.font-small-90 {
+    font-size: 0.9rem !important;
+}
 .modal-dialog{
     overflow-y: initial !important
 }

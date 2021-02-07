@@ -583,7 +583,7 @@ function initiatePages() {
     setupPages(false);
 
     const menuSet = userInfo.menu;
-    let titleHtml = '<i class="fas fa-angle-double-right mx-2 white-text" aria-hidden="true"></i>';
+    let titleHtml = '<i class="fas fa-angle-double-right mx-2" aria-hidden="true"></i>';
     $.each(menuSet, function (n, nav) {
         let menuHtml = '<li>';
         const strActive = navId === nav['navId'] ? 'active' : '';
