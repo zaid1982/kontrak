@@ -1,0 +1,25 @@
+RewriteEngine On
+
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+RewriteRule ^/?$ login.html
+RewriteRule ^p_login/?$ login.html
+RewriteRule ^p_contract/?$ contract.html
+
+RewriteRule ^login/?$ api/login.php
+RewriteRule ^login/register/?$ api/login.php
+RewriteRule ^login/forgot_password/?$ api/login.php
+RewriteRule ^version/?$ api/version.php
+RewriteRule ^version/external?$ api/version.php
+RewriteRule ^local_data/?$ api/local_data.php
+RewriteRule ^pdf/(.+)/?$ api/pdf.php
+RewriteRule ^user/?$ api/user.php
+RewriteRule ^user/(.+)/?$ api/user.php3
+
+RewriteRule ^contract/?$ api/contract.php
+RewriteRule ^contract/(.+)/?$ api/contract.php
+RewriteRule ^contract_sla/?$ api/contract_sla.php
+RewriteRule ^contract_sla/(.+)/?$ api/contract_sla.php
+RewriteRule ^contract_claim/?$ api/contract_claim.php
+RewriteRule ^contract_claim/(.+)/?$ api/contract_claim.php

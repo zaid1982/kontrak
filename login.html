@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>PDRM Sistem Pengurusan Kontrak</title>
+    <link rel = "icon" href="img/icon/logo.png" type = "image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        .intro-2 {
+            background: url("img/background/tree-and-cloud.jpg")no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        .form-elegant .font-small {
+            font-size: 0.8rem;
+        }
+        .form-elegant .z-depth-1a {
+            -webkit-box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+            box-shadow: 0 5px 8px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+        }
+        .form-elegant .z-depth-1-half,
+        .form-elegant .btn:hover {
+            -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+            box-shadow: 0 10px 19px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+        }
+    </style>
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+</head>
+
+<body class="intro-2">
+<!-- Start your project here-->
+<div class="mx-3 mt-sm-3 mt-lg-3 mb-3">
+    <div class="flex-center flex-column">
+        <h1 class="text-center wow fadeInDown my-2" data-wow-delay="0.3s"><img src="img/icon/logo.png" width="250"></h1>
+        <section class="form-elegant">
+            <!--Form without header-->
+            <div class="card card-cascade narrower mx-3 mb-3 wow fadeInLeft" data-wow-delay="0.6s">
+                <div class="view view-cascade gradient-card-header blue-grey darken-3 pt-3 pb-2">
+                    <h3 class="card-header-title">Log Masuk</h3>
+                </div>
+                <div class="card-body card-body-cascade mx-4">
+                    <form id="formLgnLogin">
+                        <div class="md-form md-outline">
+                            <i class="fas fa-user prefix text-black-50"></i>
+                            <input type="email" id="txtLgnUsername" name="txtLgnUsername" class="form-control" >
+                            <label for="txtLgnUsername" >Log ID</label>
+                            <p class="font-small text-danger pl-4_5" id="txtLgnUsernameErr"></p>
+                        </div>
+                        <div class="md-form md-outline">
+                            <i class="fas fa-lock prefix text-black-50"></i>
+                            <input type="password" id="txtLgnPassword" name="txtLgnPassword" class="form-control" autocomplete="new-password" >
+                            <label for="txtLgnPassword">Kata Laluan</label>
+                            <p class="font-small text-danger pl-4_5" id="txtLgnPasswordErr"></p>
+                        </div>
+                        <div class="text-center pt-1">
+                            <button type="button" id="btnLgnSignIn" class="btn btn-outline-blue-grey btn-rounded btn-block my-4 waves-effect z-depth-1a">Log Masuk</button>
+                        </div>
+                        <p class="font-small blue-text d-flex justify-content-end">
+                            <a href="#" class="blue-grey-text ml-1" data-toggle="modal" data-target="#modalForgotPassword">Lupa Kata Laluan?</a>
+                        </p>
+                    </form>
+                </div>
+                <!--Footer-->
+                <div class="modal-footer mx-5 pt-2 mb-1">
+                    <p class="font-small grey-text d-flex justify-content-center" style="width: 250px">
+                        © 2021 Copyright: PDRM v1.0
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<input type="hidden" id="logoutReason" value="">
+<!--<div class="includeHtml" id="h-m-modal_forgot_password"></div>-->
+
+<!--  SCRIPTS  -->
+<script type="text/javascript" src="js/addons/crypto.js"></script>
+<script type="text/javascript" src="js/include.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.js"></script>
+
+<script type="text/javascript">
+    document.write('<scr' + 'ipt src="js/common.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+
+    new WOW().init();
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        //$('.mdb-select').material_select();
+        //$('.mdb-select').materialSelect();
+        //new ModalForgotPassword();
+
+        // display notification
+        const getVar = mzGetUrlVars()['f'];
+        if (typeof getVar !== 'undefined') {
+            switch (getVar) {
+                case '0':
+                    toastr['success'](_ALERT_MSG_SUCCESS_LOGOUT, _ALERT_TITLE_SUCCESS_LOGOUT);
+                    break;
+                case '1':
+                    toastr['error'](_ALERT_MSG_ERROR_LOGOUT, _ALERT_TITLE_ERROR);
+                    break;
+                case '2':
+                    toastr['error'](_ALERT_MSG_ERROR_TIMEOUT, _ALERT_TITLE_ERROR_TIMEOUT);
+                    break;
+                case '3':
+                    toastr['success'](_ALERT_MSG_SUCCESS_REGISTER, _ALERT_TITLE_SUCCESS_REGISTER);
+                    break;
+            }
+        }
+
+        // activate account
+        const getVarKey = mzGetUrlVars()['key'];
+        if (typeof getVarKey !== 'undefined') {
+            ShowLoader();
+            setTimeout(function () {
+                try {
+                    const data = {
+                        action: 'activate',
+                        activationInput: getVarKey
+                    };
+                    mzAjaxRequest('register.php', 'POST', data);
+                    toastr['success'](_ALERT_MSG_SUCCESS_ACTIVATE, _ALERT_TITLE_SUCCESS_ACTIVATE);
+                } catch (e) {
+                    toastr['error'](e.message, _ALERT_TITLE_ERROR_ACTIVATE);
+                }
+                HideLoader();
+            }, 300);
+        }
+
+        const vDataLgn = [
+            {
+                field_id: 'txtLgnUsername',
+                type: 'text',
+                name: 'User ID',
+                validator: {
+                    notEmpty: true,
+                    maxLength: 100
+                }
+            },
+            {
+                field_id: 'txtLgnPassword',
+                type: 'text',
+                name: 'Password',
+                validator: {
+                    notEmpty: true,
+                    maxLength: 20,
+                    minLength: 6
+                }
+            }
+        ];
+
+        let formLgnLoginValidate = new MzValidate('formLgnLogin');
+        formLgnLoginValidate.registerFields(vDataLgn);
+
+        $('#formLgnLogin').on('keyup', function () {
+            $('#btnLgnSignIn').attr('disabled', !formLgnLoginValidate.validateForm());
+        });
+
+        $('#btnLgnSignIn').on('click', function () {
+            ShowLoader();
+            setTimeout(function () {
+                try {
+                    if (!formLgnLoginValidate.validateForm()) {
+                        throw new Error(_ALERT_MSG_VALIDATION);
+                    }
+                    const data = {
+                        action: 'login',
+                        username: $('#txtLgnUsername').val(),
+                        password: $('#txtLgnPassword').val()
+                    };
+                    const respLogin = mzAjaxRequest('login', 'POST', data);
+                    sessionStorage.setItem('token', respLogin.token);
+
+                    let userInfo = {};
+                    $.each(respLogin, function (n, u) {
+                        if (n !== 'token') {
+                            userInfo[n] = u;
+                        }
+                    });
+                    const rawEncrypted = CryptoJS.AES.encrypt(JSON.stringify(userInfo), 'PDRM');
+                    sessionStorage.setItem('userInfo', rawEncrypted.toString());
+                    sessionStorage.setItem('navId', parseInt(userInfo.menu[0].navId));
+                    if (userInfo.menu[0].navSecond.length > 0) {
+                        sessionStorage.setItem('navSecondId', parseInt(userInfo.menu[0].navSecond[0].navSecondId));
+                    } else {
+                        sessionStorage.setItem('navSecondId', 0);
+                    }
+                    window.location.href = userInfo.menu[0]['navPage'];
+                } catch (e) {
+                    toastr['error'](e.message, _ALERT_TITLE_ERROR_LOGIN);
+                }
+                HideLoader();
+            }, 300);
+        });
+
+    });
+
+    //document.write('<scr' + 'ipt src="js/pages/modals/modal_forgot_password.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+</script>
+
+</body>
+</html>

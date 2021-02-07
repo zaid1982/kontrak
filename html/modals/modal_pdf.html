@@ -1,0 +1,20 @@
+<div class="modal fade" id="modal_pdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-notify mt-3 pt-3" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header d-flex justify-content-center bg-danger pb-2">
+                <h4 class="text-white ml-2" id="mpdf_title"></h4>
+                <button type="button" class="close waves-effect waves-light mr-0 text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body m-0 p-0">
+                <div style="height: calc(100vh - 250px);">
+                    <iframe type="application/pdf" id="mpdf_iframe" name="mpdf_iframe_<?=time()?>" src="" height="100%" width="100%"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

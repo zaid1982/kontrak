@@ -1,0 +1,301 @@
+<section class="section mb-4" id="sectionContract">
+    <div class="row mt-4_5">
+        <div class="col-md-8">
+            <div class="card card-image mb-4 z-depth-4" id="divSctMainInfo" style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
+                <!-- Content -->
+                <div class="text-white rgba-stylish-strong py-2 px-3">
+                    <div class=" float-right pt-2">
+                        <button id="btnSctBack" class="btn btn-outline-warning waves-effect py-2 px-4"><i class="fas fa-hand-point-left mr-1"></i>Kembali</button>
+                    </div>
+                    <div>
+                        <h2 class="card-title pt-2 offset-1"><strong><span class="">No. Kontrak : </span><span id="lblSctInfoContractNo" class="font-weight-bold"></span></strong></h2>
+                        <h6 class="offset-1"><i class="fas fa-tag mr-2"></i> No. Tender : <span id="lblSctInfoContractTenderNo" class="font-weight-bold"></span></h6>
+                        <h6 class="offset-1"><i class="fas fa-file-invoice-dollar mr-2"></i> Nilai Kontrak : <span id="lblSctInfoContractCeiling" class="font-weight-bold"></span></h6>
+                        <h6 class="offset-1"><i class="fas fa-calendar mr-2"></i> Tempoh Kontrak : <span id="lblSctInfoPeriod" class="font-weight-bold"></span></h6>
+                        <h6 class="offset-1"><i class="fas fa-building mr-1"></i> Pembekal : <span id="lblSctInfoCompanyName" class="font-weight-bold"></span></h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card z-depth-4 mb-4_5" id="divSctMainForm">
+                <div class="card-header blue-grey pt-3 pb-2 pl-5 z-depth-2">
+                    <h5 href="javascript:void(0);" class="text-white">Maklumat Kontrak</h5>
+                </div>
+                <div class="card-body pt-4 pb-3">
+                    <form id="formSct">             
+                        <div class="row pt-3">
+                            <div class="col-md-6">
+                                <div class="md-form md-outline mt-0">
+                                    <input type="text" id="txtSctContractNo" class="form-control">
+                                    <label for="txtSctContractNo" id="lblSctContractNo">No. Kontrak</label>
+                                    <p class="font-small text-danger" id="txtSctContractNoErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form md-outline mt-0">
+                                    <input type="text" id="txtSctContractTenderNo" class="form-control">
+                                    <label for="txtSctContractTenderNo" id="lblSctContractTenderNo">No. Tender</label>
+                                    <p class="font-small text-danger" id="txtSctContractTenderNoErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="md-form md-outline mt-0">
+                                    <textarea id="txaSctContractName" class="md-textarea form-control" rows="3"></textarea>
+                                    <label for="txaSctContractName" id="lblSctContractName">Nama Kontrak</label>
+                                    <p class="font-small text-danger" id="txaSctContractNameErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form md-outline mt-0 mb-0 pb-0">
+                                    <input type="text" id="txtSctContractBonValue" class="form-control">
+                                    <label for="txtSctContractBonValue" id="lblSctContractBonValue">Bon Perlaksanaan</label>
+                                    <p class="font-small text-danger" id="txtSctContractBonValueErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form md-outline mt-0">
+                                    <input type="text" id="txtSctContractCeiling" class="form-control">
+                                    <label for="txtSctContractCeiling" id="lblSctContractCeiling">Nilai Had Bumbung</label>
+                                    <p class="font-small text-danger" id="txtSctContractCeilingErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form md-outline mt-0">
+                                    <input type="text" id="txtSctContractCeilingYearlyCm" class="form-control">
+                                    <label for="txtSctContractCeilingYearlyCm" id="lblSctContractCeilingYearlyCm">Siling Setahun (CM)</label>
+                                    <p class="font-small text-danger" id="txtSctContractCeilingYearlyCmErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form md-outline mt-0">
+                                    <input type="text" id="txtSctContractCeilingYearlyPm" class="form-control">
+                                    <label for="txtSctContractCeilingYearlyPm" id="lblSctContractCeilingYearlyPm">Siling Setahun (PM)</label>
+                                    <p class="font-small text-danger" id="txtSctContractCeilingYearlyPmErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form md-outline mt-0">
+                                    <input type="text" id="txtSctContractCeilingYearlyMandays" class="form-control">
+                                    <label for="txtSctContractCeilingYearlyMandays" id="lblSctContractCeilingYearlyMandays">Siling Setahun (Mandays)</label>
+                                    <p class="font-small text-danger" id="txtSctContractCeilingYearlyMandaysErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form md-outline mt-0">
+                                    <input type="text" id="txtSctContractCeilingYearlyLicense" class="form-control">
+                                    <label for="txtSctContractCeilingYearlyLicense" id="lblSctContractCeilingYearlyLicense">Siling Setahun (Lesen)</label>
+                                    <p class="font-small text-danger" id="txtSctContractCeilingYearlyLicenseErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form md-outline mt-0">
+                                    <input type="text" id="txtSctContractPeriodStart" class="form-control datepicker" readonly>
+                                    <label for="txtSctContractPeriodStart" id="lblSctContractPeriodStart">Tempoh Kontrak Dari</label>
+                                    <p class="font-small text-danger" id="txtSctContractPeriodStartErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form md-outline mt-0">
+                                    <input type="text" id="txtSctContractPeriodEnd" class="form-control datepicker" readonly>
+                                    <label for="txtSctContractPeriodEnd" id="lblSctContractPeriodEnd">Tempoh Kontrak Hingga</label>
+                                    <p class="font-small text-danger" id="txtSctContractPeriodEndErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="md-form md-outline mt-0">
+                                    <input type="text" id="txtSctContractWarranty" class="form-control">
+                                    <label for="txtSctContractWarranty" id="lblSctContractWarranty">Jaminan</label>
+                                    <p class="font-small text-danger" id="txtSctContractWarrantyErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="md-form md-outline mt-0">
+                                    <input type="text" id="txtSctContractCompanyName" class="form-control">
+                                    <label for="txtSctContractCompanyName" id="lblSctContractCompanyName">Nama Syarikat</label>
+                                    <p class="font-small text-danger" id="txtSctContractCompanyNameErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="md-form md-outline mt-0">
+                                    <textarea id="txaSctContractCompanyAddress" class="md-textarea form-control" rows="3"></textarea>
+                                    <label for="txaSctContractCompanyAddress" id="lblSctContractCompanyAddress">Alamat Syarikat</label>
+                                    <p class="font-small text-danger" id="txaSctContractCompanyAddressErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="md-form md-outline mt-0">
+                                    <input type="text" id="txtSctContractProjectManager" class="form-control">
+                                    <label for="txtSctContractProjectManager" id="lblSctContractProjectManager">Project Manager</label>
+                                    <p class="font-small text-danger" id="txtSctContractProjectManagerErr"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p class="font-small font-weight-500 pl-2 mb-1">Service Level Aggreement (SLA) :  <a class="pl-3 sctIsEdit" id="btnSctSlaAdd"><i class="far fa-plus-square" data-toggle="tooltip" data-placement="top" title="Tambah"></i></a></p>
+                                <div class="table-responsive">
+                                    <table id="dtSctSla" class="table table-hover table-sm table-condensed mb-0 display responsive">
+                                        <thead>
+                                        <tr class="th-strong">
+                                            <th class="text-center" style="width: 10%">#</th>
+                                            <th>Perkara</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer p-1">
+                    <button id="btnSctSave" class="btn btn-outline-info waves-effect float-right">Simpan <i class="fas fa-save ml-1"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card z-depth-4 mb-4" style="width: 100%">
+                <div class="card-body p-0">
+                    <div id="chartSct1" style="margin: 0;"></div>
+                </div>
+            </div>
+            <div class="card z-depth-4 mb-4" style="width: 100%">
+                <div class="card-body p-0">
+                    <div id="chartSct2-1" style="height: 125px; margin: 0;"></div>
+                    <div id="chartSct2-2" style="height: 75px; margin: 0;"></div>
+                    <div id="chartSct2-3" style="height: 75px; margin: 0;"></div>
+                    <div id="chartSct2-4" style="height: 75px; margin: 0;"></div>
+                </div>
+            </div>
+            <div class="card z-depth-4 mb-4" style="width: 100%">
+                <div class="card-body p-0">
+                    <div id="chartSct3" style="margin: 0px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card z-depth-4 mb-4">
+                <div class="card-body p-0">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <ul class="nav md-pills pills-blue-grey flex-column border-right" role="tablist">
+                                <li class="nav-item border-bottom p-1">
+                                    <a class="nav-link active" data-toggle="tab" href="#panelSct1" role="tab">Jadual Keseluruhan Tuntutan</a>
+                                </li>
+                                <li class="nav-item border-bottom p-1">
+                                    <a class="nav-link" data-toggle="tab" href="#panelSct2" role="tab">Tututan Alat Ganti</a>
+                                </li>
+                                <li class="nav-item border-bottom p-1">
+                                    <a class="nav-link" data-toggle="tab" href="#panelSct3" role="tab">Tututan Penggantian Baru</a>
+                                </li>
+                                <li class="nav-item border-bottom p-1">
+                                    <a class="nav-link" data-toggle="tab" href="#panelSct4" role="tab">Jadual Tuntutan CM</a>
+                                </li>
+                                <li class="nav-item border-bottom p-1">
+                                    <a class="nav-link" data-toggle="tab" href="#panelSct5" role="tab">Jadual Tuntutan PM</a>
+                                </li>
+                                <li class="nav-item border-bottom p-1">
+                                    <a class="nav-link" data-toggle="tab" href="#panelSct6" role="tab">Jadual Claim Mandays</a>
+                                </li>
+                                <li class="nav-item border-bottom p-1">
+                                    <a class="nav-link" data-toggle="tab" href="#panelSct7" role="tab">Jadual Claim Lesen</a>
+                                </li>
+                                <li class="nav-item border-bottom p-1">
+                                    <a class="nav-link" data-toggle="tab" href="#panelSct8" role="tab">Laporan Kemajuan Kontrak</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content vertical px-0">
+                                <div class="tab-pane fade in show active py-3" id="panelSct1" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table id="dtSctClaimAllData" class="table table-hover table-sm table-condensed table-striped mb-0 display responsive" style="width: 100%">
+                                            <thead>
+                                            <tr class="th-strong">
+                                                <th style="width: 20px">#</th>
+                                                <th>Jenis Penyelenggaraan</th>
+                                                <th>Tarikh Invois</th>
+                                                <th>No Invois</th>
+                                                <th>Jumlah Invois</th>
+                                                <th>Jumlah Terima Bayaran</th>
+                                                <th>Bayaran Tertunggak</th>
+                                                <th>Baki Siling</th>
+                                                <th>Baki Siling %</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade py-3" id="panelSct2" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5>Panel 2</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade py-3" id="panelSct3" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5>Panel 3</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade py-3" id="panelSct4" role="tabpanel">
+                                    <button id="btnSctClaimCmAdd" class="btn btn-outline-success waves-effect mb-4">Tambah Tuntutan CM  <i class="fas fa-plus ml-1"></i></button>
+                                    <div class="table-responsive">
+                                        <table id="dtSctClaimCmData" class="table table-hover table-sm table-condensed table-striped mb-0 display responsive" style="width: 100%">
+                                            <thead>
+                                            <tr class="th-strong">
+                                                <th style="width: 20px">#</th>
+                                                <th>Jenis Penyelenggaraan</th>
+                                                <th>Tarikh Invois</th>
+                                                <th>No Invois</th>
+                                                <th>Jumlah Invois</th>
+                                                <th>Jumlah Terima Bayaran</th>
+                                                <th>Bayaran Tertunggak</th>
+                                                <th>Baki Siling</th>
+                                                <th>Baki Siling %</th>
+                                                <th>Baki Siling Tahunan</th>
+                                                <th>Baki Siling Tahunan %</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade py-3" id="panelSct5" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5>Panel 5</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade py-3" id="panelSct6" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5>Panel 6</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade py-3" id="panelSct7" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5>Panel 7</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade py-3" id="panelSct8" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5>Panel 8</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

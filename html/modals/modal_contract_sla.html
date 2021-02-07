@@ -1,0 +1,41 @@
+<div class="modal fade" id="modal_contract_sla" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify mt-3 pt-5 mb-5" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header d-flex justify-content-center bg-info pb-2">
+                <h4 class="text-white ml-2"><i class="fas fa-file-signature text-white"></i> &nbsp;Service Level Agreement (SLA)</h4>
+                <button type="button" class="close waves-effect waves-light mr-0 text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body mb-0">
+                <form id="formMcs" class="mt-2" autocomplete="off">
+                    <div class="card z-depth-2">
+                        <div class="card-body blue-grey lighten-5 pt-4 pb-0">
+                            <div class="md-form mt-0">
+                                <input type="text" id="txtMcsContractNo" class="form-control" disabled>
+                                <label for="txtMcsContractNo" id="lblMcsContractNo" class="active">No. Kontrak</label>
+                            </div>
+                            <div class="md-form mt-0">
+                                <textarea id="txaMcsContractName" class="md-textarea form-control pt-2" rows="3" disabled></textarea>
+                                <label for="txaMcsContractName" id="lblMcsContractName" class="active">Nama Kontrak</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md-form md-outline mt-4_5">
+                        <textarea id="txaMcsDesc" class="md-textarea form-control" rows="4"></textarea>
+                        <label for="txaMcsDesc" id="lblMcsDesc">Penerangan SLA *</label>
+                        <p class="font-small text-danger" id="txaMcsDescErr"></p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer p-1">
+                <button class="btn btn-outline-danger waves-effect py-2 px-3" data-dismiss="modal"><i class="far fa-hand-point-left mr-1"></i> Kembali</button>
+                <button id="btnMcsDelete" class="btn btn-outline-warning waves-effect py-2 px-3" data-dismiss="modal">Hapus <i class="far fa-trash-alt ml-1"></i></button>
+                <button id="btnMcsSubmit" class="btn btn-outline-info waves-effect py-2 px-3">Hantar <i class="far fa-hand-point-right ml-1"></i> </button>
+            </div>
+        </div>
+    </div>
+</div>

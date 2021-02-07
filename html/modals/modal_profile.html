@@ -1,0 +1,85 @@
+<div class="modal fade" id="modal_profile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify mt-3 pt-5 mb-5" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header d-flex justify-content-center bg-info pb-2">
+                <h4 class="text-white ml-2"><i class="fas fa-user text-white"></i> Profil Pengguna</h4>
+                <button type="button" class="close waves-effect waves-light mr-0 text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body mb-0">
+                <!--Internal Profile-->
+                <form id="formMpfi" class="mt-3">
+                    <div class="md-form mt-0">
+                        <input type="text" id="txtMpfiName" class="form-control" value="Sharil Mazmi Mohd Sharif" disabled>
+                        <label for="txtMpfiName" class="active">Nama</label>
+                    </div>
+                    <div class="md-form mt-0">
+                        <input type="text" id="txtMpfiMyKad" class="form-control" value="810410075609" disabled>
+                        <label for="txtMpfiMyKad" class="active">No. MyKad</label>
+                    </div>
+                    <div class="md-form mt-0">
+                        <input type="text" id="txtMpfiKementerian" class="form-control" value="Kementerian Komunikasi dan Multimedia" disabled>
+                        <label for="txtMpfiKementerian" class="active">Kementerian</label>
+                    </div>
+                    <div class="md-form mt-0">
+                        <input type="text" id="txtMpfiJabatan" class="form-control" value="Jabatan Perlindungan Data Peribadi" disabled>
+                        <label for="txtMpfiJabatan" class="active">Jabatan</label>
+                    </div>
+                    <div class="md-form mt-0">
+                        <input type="text" id="txtMpfiBahagian" class="form-control" value="Unit Teknologi Maklumat" disabled>
+                        <label for="txtMpfiBahagian" class="active">Bahagian</label>
+                    </div>
+                    <div class="md-form mt-0">
+                        <input type="text" id="txtMpfiJawatan" class="form-control">
+                        <label for="txtMpfiJawatan" class="active">Jawatan *</label>
+                    </div>
+                    <div class="md-form mt-0 mb-3">
+                        <input type="text" id="txtMpfiEmail" class="form-control">
+                        <label for="txtMpfiEmail" class="active">Emel *</label>
+                    </div>
+                    <p class="font-small mb-2">Peranan / Tugas</p>
+                    <div class="form-check pl-2">
+                        <input type="checkbox" class="form-check-input" id="chkMpfiRole1" disabled>
+                        <label class="form-check-label" for="chkMpfiRole1">Pengesah</label>
+                    </div>
+                    <div class="form-check pl-2">
+                        <input type="checkbox" class="form-check-input" id="chkMpfiRole2" disabled checked>
+                        <label class="form-check-label" for="chkMpfiRole2">Pesuruhjaya</label>
+                    </div>
+                    <div class="form-check pl-2">
+                        <input type="checkbox" class="form-check-input" id="chkMpfiRole3" disabled checked>
+                        <label class="form-check-label" for="chkMpfiRole3">Pegawai Kaunter</label>
+                    </div>
+                    <div class="form-check pl-2">
+                        <input type="checkbox" class="form-check-input" id="chkMpfiRole4" disabled>
+                        <label class="form-check-label" for="chkMpfiRole4">Pengendali Aduan</label>
+                    </div>
+                    <div class="form-check pl-2">
+                        <input type="checkbox" class="form-check-input" id="chkMpfiRole5" disabled checked>
+                        <label class="form-check-label" for="chkMpfiRole5">Penyelia Aduan</label>
+                    </div>
+                    <div class="form-check pl-2">
+                        <input type="checkbox" class="form-check-input" id="chkMpfiRole6" disabled checked>
+                        <label class="form-check-label" for="chkMpfiRole6">Pegawai Penyiasat</label>
+                    </div>
+                    <div class="form-check pl-2">
+                        <input type="checkbox" class="form-check-input" id="chkMpfiRole7" disabled checked>
+                        <label class="form-check-label" for="chkMpfiRole7">Ketua Unit Pemeriksa</label>
+                    </div>
+                    <div class="form-check pl-2">
+                        <input type="checkbox" class="form-check-input" id="chkMpfiRole8" disabled checked>
+                        <label class="form-check-label" for="chkMpfiRole8">Pegawai Pemeriksa</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer p-1">
+                <button class="btn btn-outline-danger waves-effect py-2 px-3" data-dismiss="modal"><i class="far fa-hand-point-left ml-1"></i> Kembali</button>
+                <button id="btnMpfSubmit" class="btn btn-outline-info waves-effect py-2 px-3">Hantar <i class="far fa-hand-point-right ml-1"></i> </button>
+            </div>
+        </div>
+    </div>
+</div>

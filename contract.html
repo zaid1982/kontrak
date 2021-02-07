@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>PDRM Sistem Pengurusan Kontrak</title>
+    <link rel = "icon" href="img/icon/logo.png" type = "image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="css/mdb.min.css?rnd=2">
+    <!-- DataTables.net -->
+    <link rel="stylesheet" type="text/css" href="js/vendor/datatables/css/dataTables.bootstrap4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="js/vendor/datatables/css/button.dataTables.min.css"/>
+    <link href="css/style.css?rnd=1" rel="stylesheet">
+    <style>
+
+    </style>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+</head>
+
+<body class="fixed-sn mdb-skin">
+<header>
+    <div class="includeHtml" id="h-b-nav_left"></div>
+    <div class="includeHtml" id="h-b-nav_top"></div>
+</header>
+
+<main>
+    <div class="container-fluid">
+        <nav class="navbar navbar-dark blue-grey darken-3 z-depth-4 rounded mt-2 sectionCtrMain">
+            <h5 class="navbar-text white-text font-weight-bold ml-4 mt-1">
+                Senarai Kontrak
+            </h5>
+        </nav>
+        <nav class="navbar navbar-expand navbar-dark blue-grey darken-1 z-depth-4 mt-4 sectionCtrMain">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown mr-2 active">
+                        <a class="nav-link dropdown-toggle" id="navCtrMonth" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">Tempoh</a>
+                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navCtrMonth" id="divCtrMonth"></div>
+                    </li>
+                </ul>
+            </div>
+            <a class="navbar-brand d-none d-md-block lblCtrSelected" href="#"></a>
+        </nav>
+
+        <section class="mb-4 sectionCtrMain">
+            <div class="row mt-4">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card card-cascade cascading-admin-card card-image z-depth-4" style="background-image: url('img/background/pen_book.jpg');">
+                        <div class="rgba-white-strong">
+                            <div class="admin-up">
+                                <i class="fa fas fa-building info-color"></i>
+                                <div class="data">
+                                    <h6 class="font-weight-bold font-small">KONTRAK</h6>
+                                    <h4 class="font-weight-bold" id="lblCtrTotalCompany"></h4>
+                                </div>
+                            </div>
+                            <div class="card-body card-body-cascade">
+                                <p class="card-text text-black-50 font-weight-bold mb-0">Jumlah Kontrak</p>
+                                <p class="font-weight-bold mb-0">Berdaftar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card card-cascade cascading-admin-card card-image z-depth-4" style="background-image: url('img/background/pen_book.jpg');">
+                        <div class="rgba-white-strong">
+                            <div class="admin-up">
+                                <i class="fa far fa-file-invoice success-color"></i>
+                                <div class="data">
+                                    <h6 class="font-weight-bold font-small">HAD BUMBUNG</h6>
+                                    <h4 class="font-weight-bold" id="lblCtrTotalNew">0</h4>
+                                </div>
+                            </div>
+                            <div class="card-body card-body-cascade">
+                                <p class="card-text text-black-50 font-weight-bold mb-0">Keseluruhan</p>
+                                <p class="font-weight-bold mb-0 lblCtrSelected">2021</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card card-cascade cascading-admin-card card-image z-depth-4" style="background-image: url('img/background/pen_book.jpg');">
+                        <div class="rgba-white-strong">
+                            <div class="admin-up">
+                                <i class="fa fas fa-calendar-plus red accent-2"></i>
+                                <div class="data">
+                                    <h6 class="font-weight-bold font-small">HAD BUMBUNG</h6>
+                                    <h4 class="font-weight-bold" id="lblCtrTotalRenewal">0</h4>
+                                </div>
+                            </div>
+                            <div class="card-body card-body-cascade">
+                                <p class="card-text text-black-50 font-weight-bold mb-0">CM</p>
+                                <p class="font-weight-bold mb-0 lblCtrSelected">2021</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card card-cascade cascading-admin-card card-image z-depth-4" style="background-image: url('img/background/pen_book.jpg');">
+                        <div class="rgba-white-strong">
+                            <div class="admin-up">
+                                <i class="fa fas fa-clipboard-list warning-color lighten-1"></i>
+                                <div class="data">
+                                    <h6 class="font-weight-bold font-small">HAD BUMBUNG</h6>
+                                    <h4 class="font-weight-bold" id="lblCtrTotalAll"></h4>
+                                </div>
+                            </div>
+                            <div class="card-body card-body-cascade">
+                                <p class="card-text text-black-50 font-weight-bold mb-0">PM</p>
+                                <p class="font-weight-bold mb-0 lblCtrSelected">2021</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="col-lg-5 ">
+                    <div class="card z-depth-4 mb-4" style="width: 100%">
+                        <div class="card-body p-0">
+                            <div id="chartCtrType" style="height: 382px; margin: 0;"></div>
+                        </div>
+                    </div>
+                    <div class="card z-depth-4 mb-4" style="width: 100%">
+                        <div class="card-body p-0">
+                            <div id="chartCtrStatus" style="height: 382px; margin: 0;"></div>
+                        </div>
+                    </div>
+                    <div class="card z-depth-4 mb-4" style="width: 100%">
+                        <div class="card-body p-0">
+                            <div id="chartCtrCollection" style="height: 500px; margin: 0;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="card z-depth-4 mb-4" style="width: 100%">
+                        <div class="card-body p-0">
+                            <div id="chartCtrMonth" style="height: 414px; margin: 0;"></div>
+                        </div>
+                    </div>
+                    <div class="card z-depth-4 mb-4" style="width: 100%">
+                        <div class="card-body p-0">
+                            <div id="chartCtrSector" style="height: 500px; margin: 0;"></div>
+                        </div>
+                    </div>
+                    <div class="card z-depth-4 mb-4" style="width: 100%">
+                        <div class="card-body p-0">
+                            <div id="chartCtrState" style="height: 350px; margin: 0;"></div>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="col-md-12">
+                    <div class="card z-depth-4">
+                        <div class="blue-grey darken-1 py-2 mb-3 d-flex justify-content-between align-items-center z-depth-2">
+                            <div class="ml-3">
+                                <button type="button" id="btnDtCtrDataAdd" class="btn btn-outline-white btn-rounded btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Tambah Kontrak"><i class="fas fa-plus mt-0"></i></button>
+                            </div>
+                            <a href="javascript:void(0);" class="white-text font-weight-bold">Senarai Kontrak</a>
+                            <div class="mr-3">
+                                <button type="button" id="btnDtCtrDataRefresh" class="btn btn-outline-white btn-rounded btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Refresh Data dan Buang Filter"><i class="fas fa-sync mt-0"></i></button>
+                            </div>
+                        </div>
+                        <div class="card-body pb-1">
+                            <div class="table-responsive">
+                                <table id="dtCtrData" class="table table-hover table-striped mb-0 display responsive" style="width: 100%">
+                                    <thead>
+                                    <tr class="th-strong">
+                                        <th style="width: 20px">#</th>
+                                        <th style="width: 115px; min-width: 115px">No Tender</th>
+                                        <th style="width: 115px; min-width: 115px">No Kontrak</th>
+                                        <th>Nama Kontrak</th>
+                                        <th>Nilai Had Bumbung</th>
+                                        <th>Nilai Setahun Had Bumbung (CM)</th>
+                                        <th>Nilai Setahun Had Bumbung (PM)</th>
+                                        <th>Nilai Setahun Had Bumbung (Mandays)</th>
+                                        <th>Nilai Setahun Had Bumbung (Lesen)</th>
+                                        <th>Tempoh Dari</th>
+                                        <th>Tempoh Hingga</th>
+                                        <th>Bon Perlaksanaan</th>
+                                        <th>SLA</th>
+                                        <th>Jaminan</th>
+                                        <th>Syarikat</th>
+                                        <th>Alamat Syarikat</th>
+                                        <th>Project Manager</th>
+                                        <th>Direkod Oleh</th>
+                                        <th>Masa Dicipta</th>
+                                        <th>Masa Dikemaskini</th>
+                                        <th style="width: 100px">Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="includeHtml" id="h-s-section_contract"></div>
+    </div>
+    <div class="includeHtml" id="h-m-modal_profile"></div>
+    <div class="includeHtml" id="h-m-modal_change_password"></div>
+    <div class="includeHtml" id="h-m-modal_pdf"></div>
+    <div class="includeHtml" id="h-m-modal_confirm_delete"></div>
+    <div class="includeHtml" id="h-m-modal_contract_sla"></div>
+</main>
+
+<!-- SCRIPTS -->
+<script type="text/javascript" src="js/include.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.js"></script>
+<script type="text/javascript" src="js/addons/crypto.js"></script>
+<!-- Moment JavaScript -->
+<script type="text/javascript" src="js/addons/moment.min.js"></script>
+<!-- DataTables.net -->
+<script type="text/javascript" src="js/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="js/vendor/datatables/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="js/vendor/datatables/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="js/vendor/datatables/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="js/vendor/datatables/js/buttons.colvis.min.js"></script>
+<script type="text/javascript" src="js/vendor/datatables/js/jszip.min.js"></script>
+<script type="text/javascript" src="js/vendor/datatables/js/pdfmake.min.js"></script>
+<script type="text/javascript" src="js/vendor/datatables/js/vfs_fonts.js"></script>
+<!-- Highchart -->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+<script src="https://code.highcharts.com/modules/bullet.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script type="text/javascript" src="js/vendor/highcharts/themes/sand-signika.js"></script>
+
+<!--Custom scripts-->
+<script type="text/javascript">
+    document.write('<scr' + 'ipt src="js/common.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+
+    let versionLocal_;
+    let modalConfirmDeleteClass_;
+    let modalContractSlaClass_;
+    let sectionContractClass_;
+    let contractClass_;
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        ShowLoader();
+        setTimeout(function () {
+            try {
+                initiatePages();
+                moment.locale('ms');
+
+                modalConfirmDeleteClass_ = new ModalConfirmDelete();
+                modalContractSlaClass_ = new ModalContractSla();
+                sectionContractClass_ = new SectionContract();
+                contractClass_ = new MainContract();
+
+                const refStatus_ = mzGetLocalArray('kontrak_status', versionLocal_, 'statusId');
+
+                modalContractSlaClass_.setModalConfirmDeleteClass(modalConfirmDeleteClass_);
+                modalContractSlaClass_.setClassFrom(sectionContractClass_);
+                modalContractSlaClass_.init();
+
+                sectionContractClass_.setModalContractSlaClass(modalContractSlaClass_);
+                sectionContractClass_.setClassFrom(contractClass_);
+                sectionContractClass_.init();
+
+                contractClass_.setRefStatus(refStatus_);
+                contractClass_.setSectionContractClass(sectionContractClass_);
+                contractClass_.init();
+            } catch (e) {
+                toastr['error'](e.message, _ALERT_TITLE_ERROR);
+            }
+
+            HideLoader();
+        }, 300);
+    });
+
+    document.write('<scr' + 'ipt src="js/pages/modals/modal_profile.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+    document.write('<scr' + 'ipt src="js/pages/modals/modal_change_password.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+    document.write('<scr' + 'ipt src="js/pages/modals/modal_confirm_delete.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+    document.write('<scr' + 'ipt src="js/pages/modals/modal_contract_sla.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+    document.write('<scr' + 'ipt src="js/pages/sections/section_contract.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+    document.write('<scr' + 'ipt src="js/pages/mains/main_contract.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+
+</script>
