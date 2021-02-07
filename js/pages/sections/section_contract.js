@@ -614,7 +614,11 @@ function SectionContract() {
                 contractId = '';
                 mzDateFromToReset('txtSctContractPeriodStart', 'txtSctContractPeriodEnd');
                 self.genTableSla();
+                self.genTableClaimAll();
                 self.genTableClaimCm();
+                self.genTableClaimPm();
+                self.genTableClaimMandays();
+                self.genTableClaimLesen();
                 classFrom.hideMain();
                 $('#sectionContract').show();
                 self.setChartHeight();
@@ -656,6 +660,8 @@ function SectionContract() {
                 self.genTableClaimAll();
                 self.genTableClaimCm();
                 self.genTableClaimPm();
+                self.genTableClaimMandays();
+                self.genTableClaimLesen();
                 classFrom.hideMain();
                 $('#sectionContract').show();
                 self.setChartHeight();

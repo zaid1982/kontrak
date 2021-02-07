@@ -117,6 +117,8 @@ class Class_contract_claim
                     $ceilingYear = floatval($contract['contractCeilingYearlyCm']);
                 } else if ($claimType === 'PM') {
                     $ceilingYear = floatval($contract['contractCeilingYearlyPm']);
+                } else if ($claimType === 'Lesen') {
+                    $ceilingYear = floatval($contract['contractCeilingYearlyLicense']);
                 } else {
                     $ceilingYear = floatval($contract['contractCeilingYearly'.$claimType]);
                 }
