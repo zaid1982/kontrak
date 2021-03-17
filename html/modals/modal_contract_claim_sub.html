@@ -1,0 +1,66 @@
+<div class="modal fade" id="modal_contract_claim_sub" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-notify mt-3 pt-5 mb-5" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header d-flex justify-content-center bg-warning pb-2">
+                <h4 class="text-white ml-2"><i class="fas fa-tools text-white"></i> &nbsp;Tuntutan <span id="lblMcbTitle"> Alat Ganti</span></h4>
+                <button type="button" class="close waves-effect waves-light mr-0 text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body mb-0">
+				<form id="formMcb" class="mt-2" autocomplete="off">
+                    <div class="card z-depth-2">
+                        <div class="card-body blue-grey lighten-5 pt-4 pb-0">
+                            <div class="md-form mt-0">
+                                <input type="text" id="txtMcbContractNo" class="form-control" disabled>
+                                <label for="txtMcbContractNo" id="lblMcbContractNo" class="active">No. Kontrak</label>
+                            </div>
+                            <div class="md-form mt-0">
+                                <textarea id="txaMcbContractName" class="md-textarea form-control pt-2" rows="1" disabled></textarea>
+                                <label for="txaMcbContractName" id="lblMcbContractName" class="active">Nama Kontrak</label>
+                            </div>
+                            <div class="md-form mt-0">
+                                <textarea id="txaMcbContractClaimDesc" class="md-textarea form-control pt-2" rows="1" disabled></textarea>
+                                <label for="txaMcbContractClaimDesc" id="lblMcbContractClaimDesc" class="active">Tajuk Penyelenggaraan</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md-form md-outline mt-4_5">
+                        <div class="md-form md-outline mt-0">
+							<input type="text" id="txtMcbClaimSubDesc" class="form-control">
+							<label for="txtMcbClaimSubDesc" id="lblMcbClaimSubDesc">Jenis Alat Ganti *</label>
+							<p class="font-small text-danger" id="txtMcbClaimSubDescErr"></p>
+						</div>
+                        <div class="md-form md-outline mt-0">
+							<input type="text" id="txtMcbClaimSubRefNo" class="form-control">
+							<label for="txtMcbClaimSubRefNo" id="lblMcbClaimSubRefNo">No Rujukan Dalam Jadual 3A</label>
+							<p class="font-small text-danger" id="txtMcbClaimSubRefNoErr"></p>
+						</div>
+                        <div class="md-form md-outline mt-0">
+							<input type="text" id="txtMcbClaimSubCost" class="form-control">
+							<label for="txtMcbClaimSubCost" id="lblMcbClaimSubCost">Kos Per Unit (RM) *</label>
+							<p class="font-small text-danger" id="txtMcbClaimSubCostErr"></p>
+						</div>
+                        <div class="md-form md-outline mt-0">
+							<input type="text" id="txtMcbClaimSubTotal" class="form-control">
+							<label for="txtMcbClaimSubTotal" id="lblMcbClaimSubTotal">Jumlah Unit *</label>
+							<p class="font-small text-danger" id="txtMcbClaimSubTotalErr"></p>
+						</div>
+                        <div class="md-form md-outline mt-0">
+							<input type="text" id="txtMcbClaimSubTotalCost" class="form-control grey lighten-4" disabled>
+							<label for="txtMcbClaimSubTotalCost" id="lblMcbClaimSubTotalCost">Jumlah Kos (RM)</label>
+						</div>
+                    </div>
+                </form>
+			</div>
+            <div class="modal-footer p-1">
+                <button class="btn btn-outline-danger waves-effect py-2 px-3" data-dismiss="modal"><i class="far fa-hand-point-left mr-1"></i> Kembali</button>
+                <button id="btnMcbDelete" class="btn btn-outline-warning waves-effect py-2 px-3" data-dismiss="modal">Hapus <i class="far fa-trash-alt ml-1"></i></button>
+                <button id="btnMcbSubmit" class="btn btn-outline-info waves-effect py-2 px-3">Hantar <i class="far fa-hand-point-right ml-1"></i> </button>
+            </div>
+		</div>
+	</div>
+</div>

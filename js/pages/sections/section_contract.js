@@ -279,14 +279,15 @@ function SectionContract() {
                 "<'row'<'col-sm-12'tr>>",
             buttons: [
                 { extend: 'colvis', text:'<i class="fas fa-columns"></i>', className: 'btn btn-sm px-2 mx-1 mb-1', titleAttr: 'Pilihan Kolum'},
-                { extend: 'print', className: 'btn btn-outline-blue-grey btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-print"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Cetak', exportOptions: mzExportOpt},
-                { extend: 'copy', className: 'btn btn-outline-blue btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-copy"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Copy', exportOptions: mzExportOpt},
-                { extend: 'excelHtml5', className: 'btn btn-outline-green btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-excel"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'Excel', exportOptions: mzExportOpt},
-                { extend: 'pdfHtml5', className: 'btn btn-outline-red btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-pdf"></i>', title:'PDRM SPK - Senarai Tututan CM', titleAttr: 'PDF', orientation: 'landscape', exportOptions: mzExportOpt}
+                { extend: 'print', className: 'btn btn-outline-blue-grey btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-print"></i>', title:'PDRM SPK - Senarai Tututan Keseluruhan', titleAttr: 'Cetak', exportOptions: mzExportOpt},
+                { extend: 'copy', className: 'btn btn-outline-blue btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-copy"></i>', title:'PDRM SPK - Senarai Tututan Keseluruhan', titleAttr: 'Copy', exportOptions: mzExportOpt},
+                { extend: 'excelHtml5', className: 'btn btn-outline-green btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-excel"></i>', title:'PDRM SPK - Senarai Tututan Keseluruhan', titleAttr: 'Excel', exportOptions: mzExportOpt},
+                { extend: 'pdfHtml5', className: 'btn btn-outline-red btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-pdf"></i>', title:'PDRM SPK - Senarai Tututan Keseluruhan', titleAttr: 'PDF', orientation: 'landscape', exportOptions: mzExportOpt}
             ],
             aoColumns: [
                 {mData: null, sClass: 'text-center', bSortable: false},
                 {mData: 'contractClaimDesc'},
+                {mData: 'contractClaimType', sClass: 'text-center'},
                 {mData: 'contractClaimInvoiceDate', sClass: 'text-center'},
                 {mData: 'contractClaimInvoiceNo', sClass: 'text-center'},
                 {mData: 'contractClaimInvoiceAmount', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
@@ -1130,13 +1131,12 @@ function SectionContract() {
                     'CM',
                     'Mandays',
                     'License'
-                ],
-                crosshair: true
+                ]
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Rainfall (mm)'
+                    text: 'Jumlah Tuntutan (RM)'
                 }
             },
             tooltip: {
@@ -1149,7 +1149,7 @@ function SectionContract() {
             },
             plotOptions: {
                 column: {
-                    pointPadding: 0.2,
+					grouping: false,
                     borderWidth: 0
                 }
             },
@@ -1158,12 +1158,70 @@ function SectionContract() {
             },
             series: [
                 {
-                    name: '2020',
-                    data: [122221, 23233, 43334, 434343]
+                    name: '2020 Siling',
+                    data: [
+						{y:150000, color:'#ffd54f'}, 
+						{y:110000, color:'#90caf9'}, 
+						{y:80000, color:'#80cbc4'}, 
+						{y:140000, color:'#d7ccc8'}, 
+					],
+					pointPadding: 0.3,
+					pointPlacement: -0.3
                 },
                 {
-                    name: '2021',
-                    data: [122221, 23233, 43334, 434343]
+                    name: '2020 Tuntutan',
+                    data: [
+						{y:122221, color:'#ff6f00'}, 
+						{y:100000, color:'#0d47a1'}, 
+						{y:80000, color:'#004d40'}, 
+						{y:140000, color:'#5d4037'}, 
+					],
+					pointPadding: 0.4,
+					pointPlacement: -0.3
+                },
+                {
+                    name: '2021 Siling',
+                    data: [
+						{y:150000, color:'#ffd54f'}, 
+						{y:110000, color:'#90caf9'},
+						{y:80000, color:'#80cbc4'}, 
+						{y:140000, color:'#d7ccc8'}, 
+					],
+					pointPadding: 0.3,
+					pointPlacement: 0
+                },
+                {
+                    name: '2021 Tuntutan',
+                    data: [
+						{y:22221, color:'#ff6f00'}, 
+						{y:100000, color:'#0d47a1'}, 
+						{y:40000, color:'#004d40'}, 
+						{y:100000, color:'#5d4037'}, 
+					],
+					pointPadding: 0.4,
+					pointPlacement: 0
+                },
+                {
+                    name: '2022 Siling',
+                    data: [
+						{y:150000, color:'#ffd54f'}, 
+						{y:110000, color:'#90caf9'},
+						{y:80000, color:'#80cbc4'}, 
+						{y:140000, color:'#d7ccc8'}, 
+					],
+					pointPadding: 0.3,
+					pointPlacement: 0.3
+                },
+                {
+                    name: '2022 Tuntutan',
+                    data: [	
+						{y:122221, color:'#ff6f00'}, 
+						{y:100000, color:'#0d47a1'}, 
+						{y:0, color:'#004d40'}, 
+						{y:50000, color:'#5d4037'}, 
+					],
+					pointPadding: 0.4,
+					pointPlacement: 0.3
                 }
             ]
         });

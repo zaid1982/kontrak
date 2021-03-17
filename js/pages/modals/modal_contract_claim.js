@@ -3,19 +3,22 @@ function ModalContractClaim() {
     const className = 'ModalContractClaim';
     let self = this;
     let classFrom;
-    let contractId = '';
-    let contractClaimId = '';
-    let contractClaimType = '';
+    let contractId;
+    let contractClaimId;
+    let contractClaimType;
     let formMccValidate;
-    let submitType = '';
+    let submitType;
     let confirmDelete;
+	let oTableMccReplace;
+	let oTableMccNew;
+	let modalContractClaimSubClass;
 
     this.init = function () {
         const vDataMcc = [
             {
                 field_id: 'txaMccDesc',
                 type: 'text',
-                name: 'Jenis Penyelenggaraan',
+                name: 'Tajuk Penyelenggaraan',
                 validator: {
                     notEmpty: true,
                     maxLength: 500
@@ -123,13 +126,103 @@ function ModalContractClaim() {
             confirmDelete.setClassFrom(self);
             confirmDelete.load();
         });
+		
+		oTableMccReplace =  $('#dtMccReplace').DataTable({
+            bLengthChange: false,
+            bFilter: false,
+            language: _DATATABLE_LANGUAGE,
+            bInfo: false,
+            bPaginate: false,
+            ordering: false,
+            autoWidth: false,
+            fnRowCallback : function(nRow, aData, iDisplayIndex){
+                const info = $(this).DataTable().page.info();
+                $('td', nRow).eq(0).html(info.start + (iDisplayIndex + 1));
+            },
+            aoColumns: [
+                {mData: null, sClass: 'text-center', bSortable: false},
+                {mData: 'contractClaimSubDesc'},
+                {mData: 'contractClaimSubRefNo'},
+                {mData: 'contractClaimSubTotal', sClass: 'text-right'},
+                {mData: 'contractClaimSubCost', sClass: 'text-right'},
+                {mData: 'contractClaimSubTotalCost', sClass: 'text-right'}
+            ]
+        });
+        let oTableMccReplaceTbody = $('#dtMccReplace tbody');
+        oTableMccReplaceTbody.delegate('tr', 'click', function () {
+            const data = oTableMccReplace.row(this).data();
+            //modalContractClaimSubClass.setContractSlaId(data['contractSlaId']);
+            //modalContractClaimSubClass.setContractId(contractId);
+            //modalContractClaimSubClass.setContractNo($('#txtSctContractNo').val());
+            //modalContractClaimSubClass.setContractName($('#txaSctContractName').val());
+            //modalContractClaimSubClass.edit();
+        });
+        oTableMccReplaceTbody.delegate('tr', 'mouseenter', function (evt) {
+            const $cell = $(evt.target).closest('td');
+            $cell.css( 'cursor', 'pointer' );
+        });
+		
+		oTableMccNew =  $('#dtMccNew').DataTable({
+            bLengthChange: false,
+            bFilter: false,
+            language: _DATATABLE_LANGUAGE,
+            bInfo: false,
+            bPaginate: false,
+            ordering: false,
+            autoWidth: false,
+            fnRowCallback : function(nRow, aData, iDisplayIndex){
+                const info = $(this).DataTable().page.info();
+                $('td', nRow).eq(0).html(info.start + (iDisplayIndex + 1));
+            },
+            aoColumns: [
+                {mData: null, sClass: 'text-center', bSortable: false},
+                {mData: 'contractClaimSubDesc'},
+                {mData: 'contractClaimSubRefNo'},
+                {mData: 'contractClaimSubTotal', sClass: 'text-right'},
+                {mData: 'contractClaimSubCost', sClass: 'text-right'},
+                {mData: 'contractClaimSubTotalCost', sClass: 'text-right'},
+                {mData: 'contractClaimSubApprovalMinute'},
+            ]
+        });
+        let oTableMccNewTbody = $('#dtMccNew tbody');
+        oTableMccNewTbody.delegate('tr', 'click', function () {
+            const data = oTableMccNew.row(this).data();
+            //modalContractClaimSubClass.setContractSlaId(data['contractSlaId']);
+            //modalContractClaimSubClass.setContractId(contractId);
+            //modalContractClaimSubClass.setContractNo($('#txtSctContractNo').val());
+            //modalContractClaimSubClass.setContractName($('#txaSctContractName').val());
+            //modalContractClaimSubClass.edit();
+        });
+        oTableMccNewTbody.delegate('tr', 'mouseenter', function (evt) {
+            const $cell = $(evt.target).closest('td');
+            $cell.css( 'cursor', 'pointer' );
+        });
+		
+		$('#btnMccReplaceAdd').on('click', function () {
+            ShowLoader();
+            setTimeout(function () {
+                try {
+					modalContractClaimSubClass.setContractId(contractId);   
+					modalContractClaimSubClass.setContractClaimId(contractClaimId);  
+					modalContractClaimSubClass.setContractClaimSubType('Alat Ganti');      
+					modalContractClaimSubClass.setContractNo($('#txtMccContractNo').val());
+                    modalContractClaimSubClass.setContractName($('#txaMccContractName').val());
+					modalContractClaimSubClass.setContractClaimDesc($('#txaMccDesc').val()); 
+                    modalContractClaimSubClass.add();
+                } catch (e) {
+                    toastr['error'](e.message, _ALERT_TITLE_ERROR);
+                }
+                HideLoader();
+            }, 200);
+        });
     };
 
     this.add = function () {
-        mzCheckFuncParam(contractId);
+        mzCheckFuncParam([contractId]);
+		contractClaimId = '';
         formMccValidate.clearValidation();
         submitType = 'add';
-        $('#btnMccDelete').hide();
+        $('#btnMccDelete, .divMccIsCm').hide();
         $('#modal_contract_claim').modal({backdrop: 'static', keyboard: false}).scrollTop(0);
     };
 
@@ -137,7 +230,7 @@ function ModalContractClaim() {
         ShowLoader();
         setTimeout(function () {
             try {
-                mzCheckFuncParam(contractClaimId);
+                mzCheckFuncParam([contractId, contractClaimId]);
                 formMccValidate.clearValidation();
 
                 const contractClaim = mzAjaxRequest('contract_claim/'+contractClaimId, 'GET');
@@ -147,6 +240,11 @@ function ModalContractClaim() {
                 mzSetFieldValue('MccInvoiceAmount', contractClaim['contractClaimInvoiceAmount'], 'text');
                 mzSetFieldValue('MccReceivedAmount', contractClaim['contractClaimReceivedAmount'], 'text');
                 mzSetFieldValue('MccOverdueAmount', contractClaim['contractClaimOverdueAmount'], 'text');
+				
+				$('.divMccIsCm').hide();
+				if (contractClaimType === 'CM') {
+					$('.divMccIsCm').show();
+				}
                 submitType = 'edit';
                 $('#btnMccDelete').show();
                 $('#modal_contract_claim').modal({backdrop: 'static', keyboard: false}).scrollTop(0);
@@ -217,5 +315,9 @@ function ModalContractClaim() {
 
     this.setModalConfirmDeleteClass = function (_confirmDelete) {
         confirmDelete = _confirmDelete;
+    };
+
+    this.setModalContractClaimSubClass = function (_modalContractClaimSubClass) {
+        modalContractClaimSubClass = _modalContractClaimSubClass;
     };
 }

@@ -15,7 +15,7 @@
     <!-- DataTables.net -->
     <link rel="stylesheet" type="text/css" href="js/vendor/datatables/css/dataTables.bootstrap4.min.css"/>
     <link rel="stylesheet" type="text/css" href="js/vendor/datatables/css/button.dataTables.min.css"/>
-    <link href="css/style.css?rnd=2" rel="stylesheet">
+    <link href="css/style.css?rnd=3" rel="stylesheet">
     <style>
 
     </style>
@@ -208,6 +208,7 @@
     <div class="includeHtml" id="h-m-modal_confirm_delete"></div>
     <div class="includeHtml" id="h-m-modal_contract_sla"></div>
     <div class="includeHtml" id="h-m-modal_contract_claim"></div>
+    <div class="includeHtml" id="h-m-modal_contract_claim_sub"></div>
 </main>
 
 <!-- SCRIPTS -->
@@ -249,6 +250,7 @@
     let modalConfirmDeleteClass_;
     let modalContractSlaClass_;
     let modalContractClaimClass_;
+    let modalContractClaimSubClass_;
     let sectionContractClass_;
     let contractClass_;
 
@@ -263,6 +265,7 @@
                 modalConfirmDeleteClass_ = new ModalConfirmDelete();
                 modalContractSlaClass_ = new ModalContractSla();
                 modalContractClaimClass_ = new ModalContractClaim();
+                modalContractClaimClassSub_ = new ModalContractClaimSub();
                 sectionContractClass_ = new SectionContract();
                 contractClass_ = new MainContract();
 
@@ -270,9 +273,14 @@
 
                 modalContractSlaClass_.setModalConfirmDeleteClass(modalConfirmDeleteClass_);
                 modalContractSlaClass_.setClassFrom(sectionContractClass_);
-                modalContractSlaClass_.init();
+                modalContractSlaClass_.init();			
+				
+				modalContractClaimClassSub_.setModalConfirmDeleteClass(modalConfirmDeleteClass_);
+                modalContractClaimClassSub_.setClassFrom(modalContractClaimClass_);
+                modalContractClaimClassSub_.init();
 
                 modalContractClaimClass_.setModalConfirmDeleteClass(modalConfirmDeleteClass_);
+				modalContractClaimClass_.setModalContractClaimSubClass(modalContractClaimClassSub_);
                 modalContractClaimClass_.setClassFrom(sectionContractClass_);
                 modalContractClaimClass_.init();
 
@@ -297,6 +305,7 @@
     document.write('<scr' + 'ipt src="js/pages/modals/modal_confirm_delete.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
     document.write('<scr' + 'ipt src="js/pages/modals/modal_contract_sla.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
     document.write('<scr' + 'ipt src="js/pages/modals/modal_contract_claim.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+    document.write('<scr' + 'ipt src="js/pages/modals/modal_contract_claim_sub.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
     document.write('<scr' + 'ipt src="js/pages/sections/section_contract.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
     document.write('<scr' + 'ipt src="js/pages/mains/main_contract.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
 

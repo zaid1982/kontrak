@@ -43,12 +43,15 @@ class Class_constant {
     const ERR_TASK_ALREADY_SUBMITTED = 'Transaksi Permohonan ini telah dihantar sebelum ini. Sila refresh halaman atau hubungi pihak Admin JPDP jika ralat masih berlaku.';
     const ERR_TASK_CLAIMED = 'Transaksi Permohonan ini telah diambil oleh pengguna lain sebelum ini. Sila refresh halaman atau hubungi pihak Admin JPDP jika ralat masih berlaku.';
 
-    const SUC_CONTRACT_UPDATE = 'Kontrak berjaya disimpan';
+    const SUC_CONTRACT_UPDATE = 'Kontrak berjaya dikemaskini';
     const SUC_CONTRACT_DELETE = 'Kontrak berjaya dihapus';
     const SUC_CONTRACT_SLA_ADD = 'Kontrak SLA berjaya ditambah';
-    const SUC_CONTRACT_SLA_UPDATE = 'Kontrak SLA berjaya disimpan';
+    const SUC_CONTRACT_SLA_UPDATE = 'Kontrak SLA berjaya dikemaskini';
     const SUC_CONTRACT_SLA_DELETE = 'Kontrak SLA berjaya dihapus';
     const SUC_CONTRACT_CLAIM_ADD = 'Tuntutan berjaya ditambah';
-    const SUC_CONTRACT_CLAIM_UPDATE = 'Tuntutan berjaya disimpan';
+    const SUC_CONTRACT_CLAIM_UPDATE = 'Tuntutan berjaya dikemaskini';
     const SUC_CONTRACT_CLAIM_DELETE = 'Tuntutan berjaya dihapus';
+    const SUC_CONTRACT_CLAIM_SUB_ADD = 'Tuntutan Penggantian berjaya ditambah';
+    const SUC_CONTRACT_CLAIM_SUB_UPDATE = 'Tuntutan Penggantian berjaya dikemaskini';
+    const SUC_CONTRACT_CLAIM_SUB_DELETE = 'Tuntutan Penggantian berjaya dihapus';
 }

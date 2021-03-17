@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal_contract_claim" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-notify mt-3 pt-5 mb-5" role="document">
+    <div class="modal-dialog modal-xl modal-notify mt-3 pt-5 mb-5" role="document">
         <!--Content-->
         <div class="modal-content">
             <!--Header-->
@@ -14,50 +14,113 @@
                 <form id="formMcc" class="mt-2" autocomplete="off">
                     <div class="card z-depth-2">
                         <div class="card-body blue-grey lighten-5 pt-4 pb-0">
-                            <div class="md-form mt-0">
-                                <input type="text" id="txtMccContractNo" class="form-control" disabled>
-                                <label for="txtMccContractNo" id="lblMccContractNo" class="active">No. Kontrak</label>
-                            </div>
-                            <div class="md-form mt-0">
-                                <textarea id="txaMccContractName" class="md-textarea form-control pt-2" rows="3" disabled></textarea>
-                                <label for="txaMccContractName" id="lblMccContractName" class="active">Nama Kontrak</label>
-                            </div>
-                            <div class="md-form mt-0">
-                                <input type="text" id="txtMccClaimType" class="form-control" disabled>
-                                <label for="txtMccClaimType" id="lblMccClaimType" class="active">Jenis Tuntutan</label>
-                            </div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="md-form mt-0">
+										<input type="text" id="txtMccContractNo" class="form-control" disabled>
+										<label for="txtMccContractNo" id="lblMccContractNo" class="active">No. Kontrak</label>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="md-form mt-0">
+										<input type="text" id="txtMccClaimType" class="form-control" disabled>
+										<label for="txtMccClaimType" id="lblMccClaimType" class="active">Jenis Tuntutan</label>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="md-form mt-0">
+										<textarea id="txaMccContractName" class="md-textarea form-control pt-2" rows="1" disabled></textarea>
+										<label for="txaMccContractName" id="lblMccContractName" class="active">Nama Kontrak</label>
+									</div>
+								</div>
+							</div>
                         </div>
                     </div>
-                    <div class="md-form md-outline mt-4_5">
-                        <textarea id="txaMccDesc" class="md-textarea form-control" rows="2"></textarea>
-                        <label for="txaMccDesc" id="lblMccDesc">Jenis Penyelenggaraan *</label>
-                        <p class="font-small text-danger" id="txaMccDescErr"></p>
+					<div class="row mb-0">
+						<div class="col-md-12">
+							<div class="md-form md-outline mt-4_5">
+								<textarea id="txaMccDesc" class="md-textarea form-control" rows="2"></textarea>
+								<label for="txaMccDesc" id="lblMccDesc">Tajuk Penyelenggaraan *</label>
+								<p class="font-small text-danger" id="txaMccDescErr"></p>
+							</div>
+                        </div>
+						<div class="col-md-6">
+							<div class="md-form md-outline mt-0">
+								<input type="text" id="txtMccInvoiceNo" class="form-control">
+								<label for="txtMccInvoiceNo" id="lblMccInvoiceNo">No. Invois *</label>
+								<p class="font-small text-danger" id="txtMccInvoiceNoErr"></p>
+							</div>
+                        </div>
+						<div class="col-md-6">
+							<div class="md-form md-outline mt-0">
+								<input type="text" id="txtMccInvoiceDate" class="form-control datepicker" readonly>
+								<label for="txtMccInvoiceDate" id="lblMccInvoiceDate">Tarikh Invois *</label>
+								<p class="font-small text-danger" id="txtMccInvoiceDateErr"></p>
+							</div>
+                        </div>
+						<div class="col-md-4">
+							<div class="md-form md-outline mt-0">
+								<input type="text" id="txtMccInvoiceAmount" class="form-control">
+								<label for="txtMccInvoiceAmount" id="lblMccInvoiceAmount">Jumlah Invois *</label>
+								<p class="font-small text-danger" id="txtMccInvoiceAmountErr"></p>
+							</div>
+                        </div>
+						<div class="col-md-4">
+							<div class="md-form md-outline mt-0">
+								<input type="text" id="txtMccReceivedAmount" class="form-control">
+								<label for="txtMccReceivedAmount" id="lblMccReceivedAmount">Jumlah Terima Bayaran</label>
+								<p class="font-small text-danger" id="txtMccReceivedAmountErr"></p>
+							</div>
+                        </div>
+						<div class="col-md-4">
+							<div class="md-form md-outline mt-0">
+								<input type="text" id="txtMccOverdueAmount" class="form-control">
+								<label for="txtMccOverdueAmount" id="lblMccOverdueAmount">Bayaran Tertunggak</label>
+								<p class="font-small text-danger" id="txtMccOverdueAmountErr"></p>
+							</div>
+                        </div>
                     </div>
-                    <div class="md-form md-outline mt-0">
-                        <input type="text" id="txtMccInvoiceNo" class="form-control">
-                        <label for="txtMccInvoiceNo" id="lblMccInvoiceNo">No. Invois *</label>
-                        <p class="font-small text-danger" id="txtMccInvoiceNoErr"></p>
-                    </div>
-                    <div class="md-form md-outline mt-0">
-                        <input type="text" id="txtMccInvoiceDate" class="form-control datepicker" readonly>
-                        <label for="txtMccInvoiceDate" id="lblMccInvoiceDate">Tarikh Invois *</label>
-                        <p class="font-small text-danger" id="txtMccInvoiceDateErr"></p>
-                    </div>
-                    <div class="md-form md-outline mt-0">
-                        <input type="text" id="txtMccInvoiceAmount" class="form-control">
-                        <label for="txtMccInvoiceAmount" id="lblMccInvoiceAmount">Jumlah Invois *</label>
-                        <p class="font-small text-danger" id="txtMccInvoiceAmountErr"></p>
-                    </div>
-                    <div class="md-form md-outline mt-0">
-                        <input type="text" id="txtMccReceivedAmount" class="form-control">
-                        <label for="txtMccReceivedAmount" id="lblMccReceivedAmount">Jumlah Terima Bayaran</label>
-                        <p class="font-small text-danger" id="txtMccReceivedAmountErr"></p>
-                    </div>
-                    <div class="md-form md-outline mt-0">
-                        <input type="text" id="txtMccOverdueAmount" class="form-control">
-                        <label for="txtMccOverdueAmount" id="lblMccOverdueAmount">Bayaran Tertunggak</label>
-                        <p class="font-small text-danger" id="txtMccOverdueAmountErr"></p>
-                    </div>
+					<div class="row divMccIsCm">
+						<div class="col-md-12">
+							<p class="font-weight-500 pl-2 mb-1">Tuntutan Alat Ganti :  <a class="pl-3 sctIsEdit" id="btnMccReplaceAdd"><i class="far fa-plus-square" data-toggle="tooltip" data-placement="top" title="Tambah Tuntutan Alat Ganti"></i></a></p>
+							<div class="table-responsive">
+								<table id="dtMccReplace" class="table table-hover table-sm table-condensed mb-0 display responsive">
+									<thead>
+									<tr class="th-strong">
+										<th class="text-center" style="width: 20px">#</th>
+										<th>Jenis Alat Ganti</th>
+										<th>No Rujukan Dalam Jadual 3A</th>
+										<th>Jumlah Unit</th>
+										<th>Kos Per Unit (RM)</th>
+										<th>Jumlah Kos (RM)</th>
+									</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="row divMccIsCm">
+						<div class="col-md-12 mt-2">
+							<p class="font-weight-500 pl-2 mb-1">Tuntutan Penggantian Baru :  <a class="pl-3 sctIsEdit" id="btnMccNewAdd"><i class="far fa-plus-square" data-toggle="tooltip" data-placement="top" title="Tambah Tuntutan Penggantian Baru"></i></a></p>
+							<div class="table-responsive">
+								<table id="dtMccNew" class="table table-hover table-sm table-condensed mb-0 display responsive">
+									<thead>
+									<tr class="th-strong">
+										<th class="text-center" style="width: 20px">#</th>
+										<th>Jenis Peralatan</th>
+										<th>No Rujukan Dalam Jadual 3C</th>
+										<th>Jumlah Unit</th>
+										<th>Kos Per Unit (RM)</th>
+										<th>Jumlah Kos (RM)</th>
+										<th>Minit Kelulusan KPP (TSM)</th>
+									</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
                 </form>
             </div>
             <div class="modal-footer p-1">
