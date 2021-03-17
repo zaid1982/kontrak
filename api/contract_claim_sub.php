@@ -4,9 +4,9 @@ require_once 'library/constant.php';
 require_once 'function/db.php';
 require_once 'function/f_general.php';
 require_once 'function/f_login.php';
-require_once 'function/f_contract_claim_sub_sub.php';
+require_once 'function/f_contract_claim_sub.php';
 
-$api_name = 'api_contract_claim_sub_sub';
+$api_name = 'api_contract_claim_sub';
 $is_transaction = false;
 $form_data = array('success'=>false, 'result'=>'', 'error'=>'', 'errmsg'=>'');
 $result = '';
@@ -15,14 +15,14 @@ $userId = '';
 $constant = new Class_constant();
 $fn_general = new Class_general();
 $fn_login = new Class_login();
-$fn_contract_claim_sub_sub = new Class_contract_claim_sub_sub();
+$fn_contract_claim_sub = new Class_contract_claim_sub();
 
 try {
     $fn_general->__set('constant', $constant);
     $fn_login->__set('constant', $constant);
     $fn_login->__set('fn_general', $fn_general);
-    $fn_contract_claim_sub_sub->__set('constant', $constant);
-    $fn_contract_claim_sub_sub->__set('fn_general', $fn_general);
+    $fn_contract_claim_sub->__set('constant', $constant);
+    $fn_contract_claim_sub->__set('fn_general', $fn_general);
 
     Class_db::getInstance()->db_connect();
     $request_method = $_SERVER['REQUEST_METHOD'];
@@ -49,8 +49,11 @@ try {
 
     if ('GET' === $request_method) {
         if (isset ($urlArr[1])) {
-            if ($urlArr[1] === 'list') {
-                $result = $fn_contract_claim_sub->get_contract_claim_sub_list($urlArr[1]);
+            if ($urlArr[1] === 'list_replace') {
+                $result = $fn_contract_claim_sub->get_contract_claim_sub_list($urlArr[2], 'Alat Ganti');
+			} 
+			else if ($urlArr[1] === 'list_new') {
+                $result = $fn_contract_claim_sub->get_contract_claim_sub_list($urlArr[2], 'Ganti Baru');
             } else {
                 $fn_contract_claim_sub->__set('contractClaimSubId', $urlArr[1]);
                 $result = $fn_contract_claim_sub->get_contract_claim_sub();

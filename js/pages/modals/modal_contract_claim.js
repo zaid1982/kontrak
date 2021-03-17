@@ -244,6 +244,8 @@ function ModalContractClaim() {
 				$('.divMccIsCm').hide();
 				if (contractClaimType === 'CM') {
 					$('.divMccIsCm').show();
+					self.genTableReplace();
+					self.genTableNew();
 				}
                 submitType = 'edit';
                 $('#btnMccDelete').show();
@@ -282,7 +284,17 @@ function ModalContractClaim() {
 
     this.confirmDelete = function (_returnFlag) {
         self.delete();
-    }
+    };
+	
+	this.genTableReplace = function () {
+		const dataDb = mzAjaxRequest('contract_claim_sub/list_replace/'+contractClaimId, 'GET');
+		oTableMccReplace.clear().rows.add(dataDb).draw();
+	};
+	
+	this.genTableNew = function () {
+		const dataDb = mzAjaxRequest('contract_claim_sub/list_new/'+contractClaimId, 'GET');
+		oTableMccNew.clear().rows.add(dataDb).draw();
+	};
 
     this.getClassName = function () {
         return className;

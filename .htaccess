@@ -23,3 +23,5 @@ RewriteRule ^contract_sla/?$ api/contract_sla.php
 RewriteRule ^contract_sla/(.+)/?$ api/contract_sla.php
 RewriteRule ^contract_claim/?$ api/contract_claim.php
 RewriteRule ^contract_claim/(.+)/?$ api/contract_claim.php
+RewriteRule ^contract_claim_sub/?$ api/contract_claim_sub.php
+RewriteRule ^contract_claim_sub/(.+)/?$ api/contract_claim_sub.php
