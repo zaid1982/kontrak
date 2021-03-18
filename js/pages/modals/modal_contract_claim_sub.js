@@ -52,6 +52,15 @@ function ModalContractClaimSub() {
                     min: 0,
                     max: 100000
                 }
+            },
+			{
+                field_id: 'txtMcbClaimSubApprovalMinute',
+                type: 'text',
+                name: 'Minit Kelulusan TSM',
+                validator: {
+                    notEmpty: false,
+                    maxLength: 200
+                }
             }
 		];
 
@@ -78,7 +87,8 @@ function ModalContractClaimSub() {
                             contractClaimSubDesc: $('#txtMcbClaimSubDesc').val(),
                             contractClaimSubRefNo: $('#txtMcbClaimSubRefNo').val(),
                             contractClaimSubCost: $('#txtMcbClaimSubCost').val(),
-                            contractClaimSubTotal: $('#txtMcbClaimSubTotal').val()
+                            contractClaimSubTotal: $('#txtMcbClaimSubTotal').val(),
+                            contractClaimSubApprovalMinute: $('#txtMcbClaimSubApprovalMinute').val()
                         }
                         if (submitType === 'add') {
                             data['contractId'] = contractId;
@@ -106,17 +116,32 @@ function ModalContractClaimSub() {
         });
 		
 		$('#modal_contract_claim_sub').on('hidden.bs.modal', function (e) {
-			$('#modal_contract_claim').removeClass('modal-blur');
+			if (classFrom.getClassName() === 'ModalContractClaim') {
+				$('#modal_contract_claim').removeClass('modal-blur');
+			}
 		});
+	};
+	
+	this.setForm = function () {
+		if (contractClaimSubType === 'Ganti Baru') {
+			$('#divMcbApprovalMinute').show();
+			$('#lblMcbClaimSubRefNo').text('No Rujukan Dalam Jadual 3C');
+		} else if (contractClaimSubType === 'Alat Ganti') {
+			$('#divMcbApprovalMinute').hide();
+			$('#lblMcbClaimSubRefNo').text('No Rujukan Dalam Jadual 3A');
+		}
 	};
 	
 	this.add = function () {
         mzCheckFuncParam([contractId, contractClaimId]);
         formMcbValidate.clearValidation();
-        submitType = 'add';
+        submitType = 'add';		
+		self.setForm();
         $('#btnMcbDelete').hide();
         $('#modal_contract_claim_sub').modal({backdrop: 'static', keyboard: false}).scrollTop(0);
-		$('#modal_contract_claim').addClass('modal-blur');
+		if (classFrom.getClassName() === 'ModalContractClaim') {
+			$('#modal_contract_claim').addClass('modal-blur');
+		}
     };
 	
 	this.delete = function () {

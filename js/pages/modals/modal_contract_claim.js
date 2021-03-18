@@ -215,6 +215,24 @@ function ModalContractClaim() {
                 HideLoader();
             }, 200);
         });
+		
+		$('#btnMccNewAdd').on('click', function () {
+            ShowLoader();
+            setTimeout(function () {
+                try {
+					modalContractClaimSubClass.setContractId(contractId);   
+					modalContractClaimSubClass.setContractClaimId(contractClaimId);  
+					modalContractClaimSubClass.setContractClaimSubType('Ganti Baru');      
+					modalContractClaimSubClass.setContractNo($('#txtMccContractNo').val());
+                    modalContractClaimSubClass.setContractName($('#txaMccContractName').val());
+					modalContractClaimSubClass.setContractClaimDesc($('#txaMccDesc').val()); 
+                    modalContractClaimSubClass.add();
+                } catch (e) {
+                    toastr['error'](e.message, _ALERT_TITLE_ERROR);
+                }
+                HideLoader();
+            }, 200);
+        });
     };
 
     this.add = function () {
