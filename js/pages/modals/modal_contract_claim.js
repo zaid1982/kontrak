@@ -124,7 +124,7 @@ function ModalContractClaim() {
 
         $('#btnMccDelete').on('click', function () {
             confirmDelete.setClassFrom(self);
-            confirmDelete.load();
+            confirmDelete.load(contractClaimId, contractClaimType);
         });
 		
 		oTableMccReplace =  $('#dtMccReplace').DataTable({
@@ -143,19 +143,20 @@ function ModalContractClaim() {
                 {mData: null, sClass: 'text-center', bSortable: false},
                 {mData: 'contractClaimSubDesc'},
                 {mData: 'contractClaimSubRefNo'},
-                {mData: 'contractClaimSubTotal', sClass: 'text-right'},
-                {mData: 'contractClaimSubCost', sClass: 'text-right'},
-                {mData: 'contractClaimSubTotalCost', sClass: 'text-right'}
+                {mData: 'contractClaimSubTotal', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimSubCost', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimSubTotalCost', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
             ]
         });
         let oTableMccReplaceTbody = $('#dtMccReplace tbody');
         oTableMccReplaceTbody.delegate('tr', 'click', function () {
             const data = oTableMccReplace.row(this).data();
-            //modalContractClaimSubClass.setContractSlaId(data['contractSlaId']);
-            //modalContractClaimSubClass.setContractId(contractId);
-            //modalContractClaimSubClass.setContractNo($('#txtSctContractNo').val());
-            //modalContractClaimSubClass.setContractName($('#txaSctContractName').val());
-            //modalContractClaimSubClass.edit();
+            modalContractClaimSubClass.setContractClaimSubId(data['contractClaimSubId']);
+            modalContractClaimSubClass.setContractClaimSubType('Alat Ganti');
+            modalContractClaimSubClass.setContractNo($('#txtMccContractNo').val());
+            modalContractClaimSubClass.setContractName($('#txaMccContractName').val());
+            modalContractClaimSubClass.setContractClaimDesc($('#txaMccDesc').val());
+            modalContractClaimSubClass.edit();
         });
         oTableMccReplaceTbody.delegate('tr', 'mouseenter', function (evt) {
             const $cell = $(evt.target).closest('td');
@@ -178,20 +179,21 @@ function ModalContractClaim() {
                 {mData: null, sClass: 'text-center', bSortable: false},
                 {mData: 'contractClaimSubDesc'},
                 {mData: 'contractClaimSubRefNo'},
-                {mData: 'contractClaimSubTotal', sClass: 'text-right'},
-                {mData: 'contractClaimSubCost', sClass: 'text-right'},
-                {mData: 'contractClaimSubTotalCost', sClass: 'text-right'},
+                {mData: 'contractClaimSubTotal', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimSubCost', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimSubTotalCost', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
                 {mData: 'contractClaimSubApprovalMinute'},
             ]
         });
         let oTableMccNewTbody = $('#dtMccNew tbody');
         oTableMccNewTbody.delegate('tr', 'click', function () {
             const data = oTableMccNew.row(this).data();
-            //modalContractClaimSubClass.setContractSlaId(data['contractSlaId']);
-            //modalContractClaimSubClass.setContractId(contractId);
-            //modalContractClaimSubClass.setContractNo($('#txtSctContractNo').val());
-            //modalContractClaimSubClass.setContractName($('#txaSctContractName').val());
-            //modalContractClaimSubClass.edit();
+            modalContractClaimSubClass.setContractClaimSubId(data['contractClaimSubId']);
+            modalContractClaimSubClass.setContractClaimSubType('Ganti Baru');
+            modalContractClaimSubClass.setContractNo($('#txtMccContractNo').val());
+            modalContractClaimSubClass.setContractName($('#txaMccContractName').val());
+            modalContractClaimSubClass.setContractClaimDesc($('#txaMccDesc').val());
+            modalContractClaimSubClass.edit();
         });
         oTableMccNewTbody.delegate('tr', 'mouseenter', function (evt) {
             const $cell = $(evt.target).closest('td');
@@ -275,21 +277,21 @@ function ModalContractClaim() {
         }, 200);
     };
 
-    this.delete = function () {
+    this.confirmDelete = function (_returnId, _returnFlag) {
         ShowLoader();
         setTimeout(function () {
             try {
-                mzCheckFuncParam(contractClaimId);
-                mzAjaxRequest('contract_claim/'+contractClaimId, 'DELETE');
+                mzCheckFuncParam(_returnId, _returnFlag);
+                mzAjaxRequest('contract_claim/'+_returnId, 'DELETE');
                 if (classFrom.getClassName() === 'SectionContract') {
                     self.genTableClaimAll();
-                    if (contractClaimType === 'CM') {
+                    if (_returnFlag === 'CM') {
                         classFrom.genTableClaimCm();
-                    } else if (contractClaimType === 'PM') {
+                    } else if (_returnFlag === 'PM') {
                         classFrom.genTableClaimPm();
-                    } else if (contractClaimType === 'Mandays') {
+                    } else if (_returnFlag === 'Mandays') {
                         classFrom.genTableClaimMandays();
-                    } else if (contractClaimType === 'Lesen') {
+                    } else if (_returnFlag === 'Lesen') {
                         classFrom.genTableClaimLesen();
                     }
                 }
@@ -300,8 +302,8 @@ function ModalContractClaim() {
         }, 200);
     };
 
-    this.confirmDelete = function (_returnFlag) {
-        self.delete();
+    this.cancelDelete = function () {
+        $('#modal_contract_claim').modal({backdrop: 'static', keyboard: false}).scrollTop(0);
     };
 	
 	this.genTableReplace = function () {

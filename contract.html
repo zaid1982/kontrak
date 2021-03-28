@@ -265,7 +265,7 @@
                 modalConfirmDeleteClass_ = new ModalConfirmDelete();
                 modalContractSlaClass_ = new ModalContractSla();
                 modalContractClaimClass_ = new ModalContractClaim();
-                modalContractClaimClassSub_ = new ModalContractClaimSub();
+                modalContractClaimSubClass_ = new ModalContractClaimSub();
                 sectionContractClass_ = new SectionContract();
                 contractClass_ = new MainContract();
 
@@ -273,14 +273,14 @@
 
                 modalContractSlaClass_.setModalConfirmDeleteClass(modalConfirmDeleteClass_);
                 modalContractSlaClass_.setClassFrom(sectionContractClass_);
-                modalContractSlaClass_.init();			
-				
-				modalContractClaimClassSub_.setModalConfirmDeleteClass(modalConfirmDeleteClass_);
-                modalContractClaimClassSub_.setClassFrom(modalContractClaimClass_);
-                modalContractClaimClassSub_.init();
+                modalContractSlaClass_.init();
+
+                modalContractClaimSubClass_.setModalConfirmDeleteClass(modalConfirmDeleteClass_);
+                modalContractClaimSubClass_.setClassFrom(modalContractClaimClass_);
+                modalContractClaimSubClass_.init();
 
                 modalContractClaimClass_.setModalConfirmDeleteClass(modalConfirmDeleteClass_);
-				modalContractClaimClass_.setModalContractClaimSubClass(modalContractClaimClassSub_);
+				modalContractClaimClass_.setModalContractClaimSubClass(modalContractClaimSubClass_);
                 modalContractClaimClass_.setClassFrom(sectionContractClass_);
                 modalContractClaimClass_.init();
 

@@ -190,6 +190,7 @@ class Class_contract_claim
             $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering ' . __FUNCTION__);
 
             $this->fn_general->checkEmptyParams(array($this->contractClaimId));
+            Class_db::getInstance()->db_delete('t_contract_claim_sub', array('contract_claim_id'=>$this->contractClaimId));
             Class_db::getInstance()->db_delete('t_contract_claim', array('contract_claim_id'=>$this->contractClaimId));
         } catch (Exception $ex) {
             $this->fn_general->log_error(__CLASS__, __FUNCTION__, __LINE__, $ex->getMessage());

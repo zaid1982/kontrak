@@ -64,6 +64,14 @@ function ModalContractClaimSub() {
             }
 		];
 
+        $('#btnMcbDelete').on('click', function () {
+            confirmDelete.setClassFrom(self);
+            confirmDelete.load(contractClaimSubId, contractClaimSubType);
+            if (classFrom.getClassName() === 'ModalContractClaim') {
+                $('#modal_contract_claim').modal('hide');
+            }
+        });
+
         formMcbValidate = new MzValidate('formMcb');
         formMcbValidate.registerFields(vDataMcb);
 		
@@ -143,19 +151,43 @@ function ModalContractClaimSub() {
 			$('#modal_contract_claim').addClass('modal-blur');
 		}
     };
-	
-	this.delete = function () {
+
+    this.edit = function () {
+        mzCheckFuncParam([contractClaimSubId]);
+        formMcbValidate.clearValidation();
+        submitType = 'edit';
+        self.setForm();
+
+        const contractClaimSub = mzAjaxRequest('contract_claim_sub/'+contractClaimSubId, 'GET');
+        mzSetFieldValue('McbClaimSubDesc', contractClaimSub['contractClaimSubDesc'], 'text');
+        mzSetFieldValue('McbClaimSubRefNo', contractClaimSub['contractClaimSubRefNo'], 'text');
+        mzSetFieldValue('McbClaimSubCost', contractClaimSub['contractClaimSubCost'], 'text');
+        mzSetFieldValue('McbClaimSubTotal', contractClaimSub['contractClaimSubTotal'], 'text');
+        mzSetFieldValue('McbClaimSubApprovalMinute', contractClaimSub['contractClaimSubApprovalMinute'], 'text');
+        mzSetFieldValue('McbClaimSubTotalCost', contractClaimSub['contractClaimSubTotalCost'], 'text');
+
+        $('#btnMcbDelete').show();
+        $('#modal_contract_claim_sub').modal({backdrop: 'static', keyboard: false}).scrollTop(0);
+        if (classFrom.getClassName() === 'ModalContractClaim') {
+            $('#modal_contract_claim').addClass('modal-blur');
+        }
+    };
+
+    this.confirmDelete = function (_returnId, _returnFlag) {
         ShowLoader();
         setTimeout(function () {
             try {
-                mzCheckFuncParam(contractClaimId);
-                mzAjaxRequest('contract_claim_sub/'+contractClaimSubId, 'DELETE');
+                mzCheckFuncParam(_returnId, _returnFlag);
+                mzAjaxRequest('contract_claim_sub/'+_returnId, 'DELETE');
                 if (classFrom.getClassName() === 'ModalContractClaim') {
-                    if (contractClaimSubType === 'Ganti Baru') {
+                    if (_returnFlag === 'Ganti Baru') {
                         classFrom.genTableNew();
-                    } else if (contractClaimSubType === 'Alat Ganti') {
+                    } else if (_returnFlag === 'Alat Ganti') {
                         classFrom.genTableReplace();
                     }
+                }
+                if (classFrom.getClassName() === 'ModalContractClaim') {
+                    $('#modal_contract_claim').modal({backdrop: 'static', keyboard: false}).scrollTop(0);
                 }
             } catch (e) {
                 toastr['error'](e.message, _ALERT_TITLE_ERROR);
@@ -163,10 +195,13 @@ function ModalContractClaimSub() {
             HideLoader();
         }, 200);
     };
-	
-	this.confirmDelete = function (_returnFlag) {
-        self.delete();
-    }
+
+    this.cancelDelete = function () {
+        if (classFrom.getClassName() === 'ModalContractClaim') {
+            $('#modal_contract_claim').modal({backdrop: 'static', keyboard: false}).scrollTop(0).addClass('modal-blur');
+            $('#modal_contract_claim_sub').modal({backdrop: 'static', keyboard: false}).scrollTop(0);
+        }
+    };
 	
 	this.getClassName = function () {
         return className;
