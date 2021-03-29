@@ -54,6 +54,12 @@ try {
 			} 
 			else if ($urlArr[1] === 'list_new') {
                 $result = $fn_contract_claim_sub->get_contract_claim_sub_list($urlArr[2], 'Ganti Baru');
+            }
+            else if ($urlArr[1] === 'list_replace_by_contract') {
+                $result = $fn_contract_claim_sub->get_contract_claim_sub_list_by_contract($urlArr[2], 'Alat Ganti');
+            }
+            else if ($urlArr[1] === 'list_new_by_contract') {
+                $result = $fn_contract_claim_sub->get_contract_claim_sub_list_by_contract($urlArr[2], 'Ganti Baru');
             } else {
                 $fn_contract_claim_sub->__set('contractClaimSubId', $urlArr[1]);
                 $result = $fn_contract_claim_sub->get_contract_claim_sub();

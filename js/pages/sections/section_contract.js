@@ -7,6 +7,8 @@ function SectionContract() {
     let formMctValidate;
     let oTableSctSla;
     let oTableSctClaimAll;
+    let oTableSctClaimReplace;
+    let oTableSctClaimNew;
     let oTableSctClaimCm;
     let oTableSctClaimPm;
     let oTableSctClaimMandays;
@@ -14,6 +16,7 @@ function SectionContract() {
     let contractId;
     let modalContractSlaClass;
     let modalContractClaimClass;
+    let modalContractClaimSubClass;
 
     this.init = function () {
         $('#sectionContract').hide();
@@ -308,6 +311,117 @@ function SectionContract() {
             modalContractClaimClass.edit();
         });
         oTableSctClaimAllTbody.delegate('tr', 'mouseenter', function (evt) {
+            const $cell = $(evt.target).closest('td');
+            $cell.css( 'cursor', 'pointer' );
+        });
+
+        oTableSctClaimReplace = $('#dtSctClaimReplace').DataTable({
+            bLengthChange: false,
+            bFilter: false,
+            language: _DATATABLE_LANGUAGE,
+            aaSorting: [1, 'asc'],
+            bPaginate: false,
+            ordering: false,
+            autoWidth: false,
+            fnRowCallback : function(nRow, aData, iDisplayIndex){
+                const info = $(this).DataTable().page.info();
+                const currentNo = info.start + (iDisplayIndex + 1);
+                const totalRecord = $(this).DataTable().data().count();
+                if (parseInt(currentNo) <= totalRecord) {
+                    $('td', nRow).eq(0).html(currentNo);
+                } else {
+                    $('td', nRow).eq(0).html('');
+                }
+            },
+            dom: "<'row'<'col-sm-12'B>>" +
+                "<'row'<'col-sm-12'tr>>",
+            buttons: [
+                { extend: 'colvis', text:'<i class="fas fa-columns"></i>', className: 'btn btn-sm px-2 mx-1 mb-1', titleAttr: 'Pilihan Kolum'},
+                { extend: 'print', className: 'btn btn-outline-blue-grey btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-print"></i>', title:'PDRM SPK - Senarai Tututan Alat Ganti', titleAttr: 'Cetak', exportOptions: mzExportOpt},
+                { extend: 'copy', className: 'btn btn-outline-blue btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-copy"></i>', title:'PDRM SPK - Senarai Tututan  Alat Ganti', titleAttr: 'Copy', exportOptions: mzExportOpt},
+                { extend: 'excelHtml5', className: 'btn btn-outline-green btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-excel"></i>', title:'PDRM SPK - Senarai Tututan  Alat Ganti', titleAttr: 'Excel', exportOptions: mzExportOpt},
+                { extend: 'pdfHtml5', className: 'btn btn-outline-red btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-pdf"></i>', title:'PDRM SPK - Senarai Tututan  Alat Ganti', titleAttr: 'PDF', orientation: 'landscape', exportOptions: mzExportOpt}
+            ],
+            aoColumns: [
+                {mData: null, sClass: 'text-center', bSortable: false},
+                {mData: 'contractClaimInvoiceDate', sClass: 'text-center'},
+                {mData: 'contractClaimInvoiceNo'},
+                {mData: 'contractClaimDesc'},
+                {mData: 'contractClaimSubDesc'},
+                {mData: 'contractClaimSubRefNo'},
+                {mData: 'contractClaimSubTotal', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimSubCost', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimSubTotalCost', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+            ]
+        });
+        let oTableSctClaimReplaceTbody = $('#dtSctClaimReplace tbody');
+        oTableSctClaimReplaceTbody.delegate('tr', 'click', function () {
+            const data = oTableSctClaimReplace.row(this).data();
+            modalContractClaimSubClass.setClassFrom(self);
+            modalContractClaimSubClass.setContractClaimSubId(data['contractClaimSubId']);
+            modalContractClaimSubClass.setContractClaimSubType('Alat Ganti');
+            modalContractClaimSubClass.setContractNo($('#txtSctContractNo').val());
+            modalContractClaimSubClass.setContractName($('#txaSctContractName').val());
+            modalContractClaimSubClass.setContractClaimDesc(data['contractClaimDesc']);
+            modalContractClaimSubClass.edit();
+        });
+        oTableSctClaimReplaceTbody.delegate('tr', 'mouseenter', function (evt) {
+            const $cell = $(evt.target).closest('td');
+            $cell.css( 'cursor', 'pointer' );
+        });
+
+        oTableSctClaimNew = $('#dtSctClaimNew').DataTable({
+            bLengthChange: false,
+            bFilter: false,
+            language: _DATATABLE_LANGUAGE,
+            aaSorting: [1, 'asc'],
+            bPaginate: false,
+            ordering: false,
+            autoWidth: false,
+            fnRowCallback : function(nRow, aData, iDisplayIndex){
+                const info = $(this).DataTable().page.info();
+                const currentNo = info.start + (iDisplayIndex + 1);
+                const totalRecord = $(this).DataTable().data().count();
+                if (parseInt(currentNo) <= totalRecord) {
+                    $('td', nRow).eq(0).html(currentNo);
+                } else {
+                    $('td', nRow).eq(0).html('');
+                }
+            },
+            dom: "<'row'<'col-sm-12'B>>" +
+                "<'row'<'col-sm-12'tr>>",
+            buttons: [
+                { extend: 'colvis', text:'<i class="fas fa-columns"></i>', className: 'btn btn-sm px-2 mx-1 mb-1', titleAttr: 'Pilihan Kolum'},
+                { extend: 'print', className: 'btn btn-outline-blue-grey btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-print"></i>', title:'PDRM SPK - Senarai Tututan Alat Ganti', titleAttr: 'Cetak', exportOptions: mzExportOpt},
+                { extend: 'copy', className: 'btn btn-outline-blue btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-copy"></i>', title:'PDRM SPK - Senarai Tututan  Alat Ganti', titleAttr: 'Copy', exportOptions: mzExportOpt},
+                { extend: 'excelHtml5', className: 'btn btn-outline-green btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-excel"></i>', title:'PDRM SPK - Senarai Tututan  Alat Ganti', titleAttr: 'Excel', exportOptions: mzExportOpt},
+                { extend: 'pdfHtml5', className: 'btn btn-outline-red btn-sm px-2 mx-1 mb-1', text:'<i class="fas fa-file-pdf"></i>', title:'PDRM SPK - Senarai Tututan  Alat Ganti', titleAttr: 'PDF', orientation: 'landscape', exportOptions: mzExportOpt}
+            ],
+            aoColumns: [
+                {mData: null, sClass: 'text-center', bSortable: false},
+                {mData: 'contractClaimInvoiceDate', sClass: 'text-center'},
+                {mData: 'contractClaimInvoiceNo'},
+                {mData: 'contractClaimDesc'},
+                {mData: 'contractClaimSubDesc'},
+                {mData: 'contractClaimSubRefNo'},
+                {mData: 'contractClaimSubApprovalMinute'},
+                {mData: 'contractClaimSubTotal', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimSubCost', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+                {mData: 'contractClaimSubTotalCost', sClass: 'text-right', mRender: function (data) { return mzFormatNumber(data,2)}},
+            ]
+        });
+        let oTableSctClaimNewTbody = $('#dtSctClaimNew tbody');
+        oTableSctClaimNewTbody.delegate('tr', 'click', function () {
+            const data = oTableSctClaimNew.row(this).data();
+            modalContractClaimSubClass.setClassFrom(self);
+            modalContractClaimSubClass.setContractClaimSubId(data['contractClaimSubId']);
+            modalContractClaimSubClass.setContractClaimSubType('Ganti Baru');
+            modalContractClaimSubClass.setContractNo($('#txtSctContractNo').val());
+            modalContractClaimSubClass.setContractName($('#txaSctContractName').val());
+            modalContractClaimSubClass.setContractClaimDesc(data['contractClaimDesc']);
+            modalContractClaimSubClass.edit();
+        });
+        oTableSctClaimNewTbody.delegate('tr', 'mouseenter', function (evt) {
             const $cell = $(evt.target).closest('td');
             $cell.css( 'cursor', 'pointer' );
         });
@@ -616,6 +730,8 @@ function SectionContract() {
                 mzDateFromToReset('txtSctContractPeriodStart', 'txtSctContractPeriodEnd');
                 self.genTableSla();
                 self.genTableClaimAll();
+                self.genTableClaimReplace();
+                self.genTableClaimNew();
                 self.genTableClaimCm();
                 self.genTableClaimPm();
                 self.genTableClaimMandays();
@@ -659,6 +775,8 @@ function SectionContract() {
                 self.setMainInfo();
                 self.genTableSla();
                 self.genTableClaimAll();
+                self.genTableClaimReplace();
+                self.genTableClaimNew();
                 self.genTableClaimCm();
                 self.genTableClaimPm();
                 self.genTableClaimMandays();
@@ -715,6 +833,24 @@ function SectionContract() {
             oTableSctClaimAll.clear().rows.add(dataDb).draw();
         } else {
             oTableSctClaimAll.clear().draw();
+        }
+    };
+
+    this.genTableClaimReplace = function () {
+        if (contractId !== '') {
+            const dataDb = mzAjaxRequest('contract_claim_sub/list_replace_by_contract/'+contractId, 'GET');
+            oTableSctClaimReplace.clear().rows.add(dataDb).draw();
+        } else {
+            oTableSctClaimReplace.clear().draw();
+        }
+    };
+
+    this.genTableClaimNew = function () {
+        if (contractId !== '') {
+            const dataDb = mzAjaxRequest('contract_claim_sub/list_new_by_contract/'+contractId, 'GET');
+            oTableSctClaimNew.clear().rows.add(dataDb).draw();
+        } else {
+            oTableSctClaimNew.clear().draw();
         }
     };
 
@@ -1253,5 +1389,9 @@ function SectionContract() {
 
     this.setModalContractClaimClass = function (_modalContractClaimClass) {
         modalContractClaimClass = _modalContractClaimClass;
+    };
+
+    this.setModalContractClaimSubClass = function (_modalContractClaimSubClass) {
+        modalContractClaimSubClass = _modalContractClaimSubClass;
     };
 }

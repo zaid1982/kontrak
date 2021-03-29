@@ -204,6 +204,7 @@ function ModalContractClaim() {
             ShowLoader();
             setTimeout(function () {
                 try {
+                    modalContractClaimSubClass.setClassFrom(self);
 					modalContractClaimSubClass.setContractId(contractId);   
 					modalContractClaimSubClass.setContractClaimId(contractClaimId);  
 					modalContractClaimSubClass.setContractClaimSubType('Alat Ganti');      
@@ -222,6 +223,7 @@ function ModalContractClaim() {
             ShowLoader();
             setTimeout(function () {
                 try {
+                    modalContractClaimSubClass.setClassFrom(self);
 					modalContractClaimSubClass.setContractId(contractId);   
 					modalContractClaimSubClass.setContractClaimId(contractClaimId);  
 					modalContractClaimSubClass.setContractClaimSubType('Ganti Baru');      

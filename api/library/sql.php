@@ -115,6 +115,14 @@ class Class_sql
                 FROM t_contract
                 LEFT JOIN t_contract_sla ON t_contract_sla.contract_id = t_contract.contract_id
                 LEFT JOIN sys_user ON sys_user.user_id = t_contract.contract_created_by";
+            } else if ($title === 'vw_contract_claim_sub_by_contract') {
+                $sql = "SELECT 
+                    t_contract_claim_sub.*,
+                    t_contract_claim.contract_claim_desc,
+                    t_contract_claim.contract_claim_invoice_no,
+                    t_contract_claim.contract_claim_invoice_date
+                FROM t_contract_claim_sub
+                LEFT JOIN t_contract_claim ON t_contract_claim.contract_claim_id = t_contract_claim_sub.contract_claim_id";
             } else {
                 throw new Exception($this->get_exception('0098', __FUNCTION__, __LINE__, 'Sql not exist : ' . $title));
             }
