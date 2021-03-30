@@ -102,7 +102,7 @@ function ModalContractClaim() {
                             throw new Error(_ALERT_MSG_ERROR_DEFAULT);
                         }
                         if (classFrom.getClassName() === 'SectionContract') {
-                            self.genTableClaimAll();
+                            classFrom.genTableClaimAll();
                             if (contractClaimType === 'CM') {
                                 classFrom.genTableClaimCm();
                             } else if (contractClaimType === 'PM') {
@@ -286,7 +286,7 @@ function ModalContractClaim() {
                 mzCheckFuncParam(_returnId, _returnFlag);
                 mzAjaxRequest('contract_claim/'+_returnId, 'DELETE');
                 if (classFrom.getClassName() === 'SectionContract') {
-                    self.genTableClaimAll();
+                    classFrom.genTableClaimAll();
                     if (_returnFlag === 'CM') {
                         classFrom.genTableClaimCm();
                     } else if (_returnFlag === 'PM') {
