@@ -6,6 +6,7 @@ RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
 RewriteRule ^/?$ login.html
 RewriteRule ^p_login/?$ login.html
 RewriteRule ^p_contract/?$ contract.html
+RewriteRule ^p_user_management/?$ user_management.html
 
 RewriteRule ^login/?$ api/login.php
 RewriteRule ^login/register/?$ api/login.php
@@ -15,7 +16,7 @@ RewriteRule ^version/external?$ api/version.php
 RewriteRule ^local_data/?$ api/local_data.php
 RewriteRule ^pdf/(.+)/?$ api/pdf.php
 RewriteRule ^user/?$ api/user.php
-RewriteRule ^user/(.+)/?$ api/user.php3
+RewriteRule ^user/(.+)/?$ api/user.php
 
 RewriteRule ^contract/?$ api/contract.php
 RewriteRule ^contract/(.+)/?$ api/contract.php

@@ -80,15 +80,15 @@ class Class_contract
     }
 
     /**
+     * @param $contractId
      * @return mixed
      * @throws Exception
      */
-    public function get_contract() {
+    public function getContract($contractId) {
         try {
             $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering ' . __FUNCTION__);
-
-            $this->fn_general->checkEmptyParams(array($this->contractId));
-            return Class_db::getInstance()->db_select_single('t_contract', array('contract_id'=>$this->contractId), null, 1);
+            $this->fn_general->checkEmptyParams(array($contractId));
+            return Class_db::getInstance()->db_select_single('t_contract', array('contract_id'=>$contractId), null, 1);
         } catch (Exception $ex) {
             $this->fn_general->log_error(__CLASS__, __FUNCTION__, __LINE__, $ex->getMessage());
             throw new Exception($this->get_exception('0005', __FUNCTION__, __LINE__, $ex->getMessage()), $ex->getCode());
@@ -99,7 +99,38 @@ class Class_contract
      * @return array
      * @throws Exception
      */
-    public function get_contract_list()
+    public function getContractList()
+    {
+        try {
+            $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering ' . __FUNCTION__);
+            return Class_db::getInstance()->db_select('t_contract');
+        } catch (Exception $ex) {
+            $this->fn_general->log_error(__CLASS__, __FUNCTION__, __LINE__, $ex->getMessage());
+            throw new Exception($this->get_exception('0005', __FUNCTION__, __LINE__, $ex->getMessage()), $ex->getCode());
+        }
+    }
+
+    /**
+     * @param $contractId
+     * @return mixed
+     * @throws Exception
+     */
+    public function getContractFull($contractId) {
+        try {
+            $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering ' . __FUNCTION__);
+            $this->fn_general->checkEmptyParams(array($contractId));
+            return Class_db::getInstance()->db_select_single('vw_contract', array('t_contract.contract_id'=>$contractId), null, 1);
+        } catch (Exception $ex) {
+            $this->fn_general->log_error(__CLASS__, __FUNCTION__, __LINE__, $ex->getMessage());
+            throw new Exception($this->get_exception('0005', __FUNCTION__, __LINE__, $ex->getMessage()), $ex->getCode());
+        }
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function getContractFullList()
     {
         try {
             $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering ' . __FUNCTION__);
@@ -115,7 +146,7 @@ class Class_contract
      * @return string
      * @throws Exception
      */
-    public function add_contract ($userId) {
+    public function addContract ($userId) {
         try {
             $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering '.__FUNCTION__);
 
@@ -133,7 +164,7 @@ class Class_contract
      * @param $params
      * @throws Exception
      */
-    public function update_contract($params=array())
+    public function updateContract($params=array())
     {
         try {
             $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering ' . __FUNCTION__);
@@ -149,7 +180,7 @@ class Class_contract
     /**
      * @throws Exception
      */
-    public function delete_contract()
+    public function deleteContract()
     {
         try {
             $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering ' . __FUNCTION__);

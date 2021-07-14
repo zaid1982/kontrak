@@ -43,6 +43,9 @@ class Class_constant {
     const ERR_TASK_ALREADY_SUBMITTED = 'Transaksi Permohonan ini telah dihantar sebelum ini. Sila refresh halaman atau hubungi pihak Admin JPDP jika ralat masih berlaku.';
     const ERR_TASK_CLAIMED = 'Transaksi Permohonan ini telah diambil oleh pengguna lain sebelum ini. Sila refresh halaman atau hubungi pihak Admin JPDP jika ralat masih berlaku.';
 
+    const SUC_USER_ADD = 'Pengguna Sistem berjaya ditambah';
+    const SUC_USER_UPDATE = 'Pengguna Sistem berjaya dikemaskini';
+
     const SUC_CONTRACT_UPDATE = 'Kontrak berjaya dikemaskini';
     const SUC_CONTRACT_DELETE = 'Kontrak berjaya dihapus';
     const SUC_CONTRACT_SLA_ADD = 'Kontrak SLA berjaya ditambah';

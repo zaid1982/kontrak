@@ -80,18 +80,25 @@ class Class_sql
                 FROM wfl_task_assign  
                 INNER JOIN wfl_transaction ON wfl_transaction.transaction_id = wfl_task_assign.transaction_id AND transaction_status = 4";
             } else if ($title === 'vw_user_list') {
-                $sql = "SELECT
+                $sql = "SELECT 
                     sys_user.*,
-                    user_group.group_id,
-                    user_group.roles
-                FROM sys_user
+                    user_role.roles,
+                    contract_user.contracts
+                FROM sys_user 
                 LEFT JOIN
-                    (
-                        SELECT 
-                            user_id, GROUP_CONCAT(role_id) AS roles, MIN(group_id) AS group_id
-                        FROM sys_user_role
-                        GROUP BY user_id
-                    ) user_group ON user_group.user_id = sys_user.user_id";
+                (
+                    SELECT 
+                        user_id, GROUP_CONCAT(DISTINCT(role_id)) AS roles	
+                    FROM sys_user_role
+                    GROUP BY user_id
+                ) user_role ON user_role.user_id = sys_user.user_id
+                LEFT JOIN
+                (
+                    SELECT 
+                        user_id, GROUP_CONCAT(DISTINCT(contract_id)) AS contracts	
+                    FROM t_contract_user
+                    GROUP BY user_id
+                ) contract_user ON contract_user.user_id = sys_user.user_id";
             } else if ($title === 'vw_user_by_role') {
                 $sql = "SELECT
                     role_id, COUNT(*) AS total

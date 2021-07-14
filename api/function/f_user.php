@@ -410,107 +410,36 @@ class Class_user {
     }
 
     /**
-     * @param array $userDetails
+     * @param array $params
+     * @param $roleList
+     * @param array $contractList
      * @return mixed
      * @throws Exception
      */
-    public function add_user ($userDetails=array()) {
+    public function addUser($params, $roleList, $contractList=array()) {
         try {
             $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering '.__FUNCTION__);
-            $constant = $this->constant;
 
-            if (empty($userDetails)) {
-                throw new Exception('['.__LINE__.'] - Array userDetails empty');
-            }
-            if (!array_key_exists('userName', $userDetails) && empty($userDetails['userName'])) {
-                throw new Exception('['.__LINE__.'] - Parameter userName empty');
-            }
-            if (!array_key_exists('userFirstName', $userDetails) && empty($userDetails['userFirstName'])) {
-                throw new Exception('['.__LINE__.'] - Parameter userFirstName empty');
-            }
-            if (!array_key_exists('userEmail', $userDetails) && empty($userDetails['userEmail'])) {
-                throw new Exception('['.__LINE__.'] - Parameter userEmail empty');
-            }
-            if (!array_key_exists('userContactNo', $userDetails) && empty($userDetails['userContactNo'])) {
-                throw new Exception('['.__LINE__.'] - Parameter userProfileContactNo empty');
-            }
-            if (!array_key_exists('userPassword', $userDetails) && empty($userDetails['userPassword'])) {
-                throw new Exception('['.__LINE__.'] - Parameter userPassword empty');
-            }
-            if (!array_key_exists('userType', $userDetails) && empty($userDetails['userType'])) {
-                throw new Exception('['.__LINE__.'] - Parameter userType empty');
-            }
-            if (!array_key_exists('roles', $userDetails) && empty($userDetails['roles'])) {
-                throw new Exception('['.__LINE__.'] - Parameter roles empty');
-            }
-            if (!array_key_exists('designationId', $userDetails) && empty($userDetails['designationId'])) {
-                throw new Exception('['.__LINE__.'] - Parameter designationId empty');
-            }
-            if (!array_key_exists('siteId', $userDetails) && empty($userDetails['siteId'])) {
-                throw new Exception('['.__LINE__.'] - Parameter siteId empty');
+            $this->fn_general->checkEmptyParams(array($params, $roleList));
+            $this->fn_general->checkEmptyParamsArray($params, array('userName', 'userPasswordTemp', 'userFirstName', 'userEmail', 'userContactNo', 'groupId'));
+
+            if (Class_db::getInstance()->db_count('sys_user', array('user_name'=>$params['userName'])) > 0) {
+                throw new Exception('[' . __LINE__ . '] - ID Log Masuk telah sedia ada dalam sistem. Sila pilih ID Log Masuk yang lain.', 31);
             }
 
-            $userName = $userDetails['userName'];
-            $userFirstName = $userDetails['userFirstName'];
-            $userEmail = $userDetails['userEmail'];
-            $userContactNo = $userDetails['userContactNo'];
-            $userPassword = $userDetails['userPassword'];
-            $designationId = $userDetails['designationId'];
-            $userType = $userDetails['userType'];
-            $rolesStr = $userDetails['roles'];
-            $siteId = $userDetails['siteId'];
+            $params['userType'] = '1';
+            $params['userStatus'] = '1';
+            $params['userActivationKey'] = $this->fn_general->generateRandomString(20);
+            $params['userPassword'] = md5($params['userPasswordTemp']);
+            $userId = Class_db::getInstance()->db_insert('sys_user', $this->fn_general->convertToMysqlArrAll($params));
 
-            if ($userType == '1') {
-                $groupId = '1';
-            } else if ($userType == '2') {
-                $groupId = Class_db::getInstance()->db_select_col('cli_site', array('site_id'=>$siteId), 'group_id', null, 1);
-            } else {
-                throw new Exception('['.__LINE__.'] - Parameter userType invalid ('.$userType.')');
+            foreach ($roleList as $roleId) {
+                Class_db::getInstance()->db_insert('sys_user_role', array('user_id'=>$userId, 'group_id'=>$params['groupId'], 'role_id'=>$roleId));
             }
-
-            if (Class_db::getInstance()->db_count('sys_user', array('user_name'=>$userName)) > 0) {
-                throw new Exception('[' . __LINE__ . '] - '.$constant::ERR_USER_ADD_SIMILAR_USERNAME, 31);
+            foreach ($contractList as $contractId) {
+                Class_db::getInstance()->db_insert('t_contract_user', array('user_id'=>$userId, 'contract_id'=>$contractId));
             }
-            if (Class_db::getInstance()->db_count('sys_user_profile', array('user_email'=>$userEmail)) > 0) {
-                throw new Exception('[' . __LINE__ . '] - '.$constant::ERR_USER_ADD_SIMILAR_EMAIL, 31);
-            }
-
-            $userId = Class_db::getInstance()->db_insert('sys_user', array('user_name'=>$userName, 'user_type'=>$userType, 'user_password'=>md5($userPassword), 'user_first_name'=>$userFirstName, 'site_id'=>$siteId, 'user_status'=>'1'));
-            Class_db::getInstance()->db_insert('sys_user_profile', array('user_id'=>$userId, 'user_email'=>$userEmail, 'user_contact_no'=>$userContactNo, 'designation_id'=>$designationId));
-            Class_db::getInstance()->db_insert('sys_user_group', array('user_id'=>$userId, 'group_id'=>$groupId));
-            $roles = explode(',', $rolesStr);
-            foreach ($roles as $role) {
-                Class_db::getInstance()->db_insert('sys_user_role', array('user_id'=>$userId, 'role_id'=>$role, 'group_id'=>$groupId));
-                $checkpoints = Class_db::getInstance()->db_select('wfl_checkpoint', array('checkpoint_type'=>'<>3', 'role_id'=>$role));
-                foreach ($checkpoints as $checkpoint) {
-                    $checkpointId = $checkpoint['checkpoint_id'];
-                    if ($checkpointId == '3' && $role == '4') {
-                        $groupId_ = $groupId;
-                    } else {
-                        $groupId_ = $checkpoint['group_id'];
-                    }
-                    if ($groupId_ === $groupId || is_null($groupId_)) {
-                        Class_db::getInstance()->db_insert('wfl_checkpoint_user', array('user_id'=>$userId, 'checkpoint_id'=>$checkpointId, 'role_id'=>$role, 'group_id'=>$groupId));
-                    }
-                }
-            }
-
             return $userId;
-        }
-        catch(Exception $ex) {
-            $this->fn_general->log_error(__CLASS__, __FUNCTION__, __LINE__, $ex->getMessage());
-            throw new Exception($this->get_exception('0005', __FUNCTION__, __LINE__, $ex->getMessage()), $ex->getCode());
-        }
-    }
-
-    /**
-     * @return array
-     * @throws Exception
-     */
-    public function get_user_list() {
-        try {
-            $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering '.__FUNCTION__);
-            return Class_db::getInstance()->db_select('sys_user');
         }
         catch (Exception $ex) {
             $this->fn_general->log_error(__CLASS__, __FUNCTION__, __LINE__, $ex->getMessage());
@@ -522,14 +451,59 @@ class Class_user {
      * @return array
      * @throws Exception
      */
-    public function get_user () {
+    public function getUserList() {
         try {
             $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering '.__FUNCTION__);
+            return Class_db::getInstance()->db_select('sys_user');
+        }
+        catch (Exception $ex) {
+            $this->fn_general->log_error(__CLASS__, __FUNCTION__, __LINE__, $ex->getMessage());
+            throw new Exception($this->get_exception('0005', __FUNCTION__, __LINE__, $ex->getMessage()), $ex->getCode());
+        }
+    }
 
-            $this->fn_general->checkEmptyParams(array($this->userId));
-            $user = Class_db::getInstance()->db_select_single('vw_user_list', array('sys_user.user_id'=>$this->userId), null, 1);
-            $user['clientId'] = !empty($user['siteId']) ? Class_db::getInstance()->db_select_col('cli_site', array('site_id' => $user['siteId']), 'client_id') : '';
-            return $user;
+    /**
+     * @param $userId
+     * @return array
+     * @throws Exception
+     */
+    public function getUser ($userId) {
+        try {
+            $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering '.__FUNCTION__);
+            $this->fn_general->checkEmptyParams(array($userId));
+            return Class_db::getInstance()->db_select_single('sys_user', array('user_id'=>$userId), null, 1);
+        }
+        catch (Exception $ex) {
+            $this->fn_general->log_error(__CLASS__, __FUNCTION__, __LINE__, $ex->getMessage());
+            throw new Exception($this->get_exception('0005', __FUNCTION__, __LINE__, $ex->getMessage()), $ex->getCode());
+        }
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function getUserFullList() {
+        try {
+            $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering '.__FUNCTION__);
+            return Class_db::getInstance()->db_select('vw_user_list');
+        }
+        catch (Exception $ex) {
+            $this->fn_general->log_error(__CLASS__, __FUNCTION__, __LINE__, $ex->getMessage());
+            throw new Exception($this->get_exception('0005', __FUNCTION__, __LINE__, $ex->getMessage()), $ex->getCode());
+        }
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     * @throws Exception
+     */
+    public function getUserFull ($userId) {
+        try {
+            $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering '.__FUNCTION__);
+            $this->fn_general->checkEmptyParams(array($userId));
+            return Class_db::getInstance()->db_select_single('vw_user_list', array('sys_user.user_id'=>$userId), null, 1);
         }
         catch (Exception $ex) {
             $this->fn_general->log_error(__CLASS__, __FUNCTION__, __LINE__, $ex->getMessage());

@@ -32,23 +32,11 @@
     <div class="container-fluid">
         <nav class="navbar navbar-dark blue-grey darken-3 z-depth-4 rounded mt-2 sectionCtrMain">
             <h5 class="navbar-text white-text font-weight-bold ml-4 mt-1">
-                Pengurusan Kontrak
+                Pengurusan Pengguna
             </h5>
         </nav>
-       <!-- <nav class="navbar navbar-expand navbar-dark blue-grey darken-1 z-depth-4 mt-4 sectionCtrMain">
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown mr-2 active">
-                        <a class="nav-link dropdown-toggle" id="navCtrMonth" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">Tempoh</a>
-                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navCtrMonth" id="divCtrMonth"></div>
-                    </li>
-                </ul>
-            </div>
-            <a class="navbar-brand d-none d-md-block lblCtrSelected" href="#"></a>
-        </nav>-->
 
-        <section class="mb-4 sectionCtrMain">
+        <section class="mb-4 sectionUsmMain">
             <div class="row mt-4">
                 <!--<div class="col-xl-3 col-md-6 mb-4">
                     <div class="card card-cascade cascading-admin-card card-image z-depth-4" style="background-image: url('img/background/pen_book.jpg');">
@@ -154,41 +142,36 @@
                 </div>-->
                 <div class="col-md-12">
                     <div class="card z-depth-4">
-                        <div class="blue-grey darken-1 py-2 mb-3 d-flex justify-content-between align-items-center z-depth-2">
-                            <div class="ml-3">
-                                <button type="button" id="btnDtCtrDataAdd" class="btn btn-outline-white btn-rounded btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Tambah Kontrak"><i class="fas fa-plus mt-0"></i></button>
+                        <div class="card-body pb-1 px-1">
+                            <!--<div class="row">
+                                <div class="col-md-5">
+                                    <div class="mb-4" id="chartUsmDepartment" style="height: 266px; margin: 0;"></div>
+                                    <div class="mb-4" id="chartUsmStatus" style="height: 160px; margin: 0;"></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="mb-4" id="chartUsmRole" style="height: 450px; margin: 0;"></div>
+                                </div>
+                            </div>-->
+                            <div class="ml-2 mb-2">
+                                <button id="btnUsmAdd" class="btn btn-unique waves-effect py-2 px-4"><i class="fas fa-user-plus mr-1"></i>Tambah Pengguna Sistem Baharu</button>
                             </div>
-                            <a href="javascript:void(0);" class="white-text font-weight-bold">Senarai Kontrak</a>
-                            <div class="mr-3">
-                                <button type="button" id="btnDtCtrDataRefresh" class="btn btn-outline-white btn-rounded btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Refresh Data"><i class="fas fa-sync mt-0"></i></button>
-                            </div>
-                        </div>
-                        <div class="card-body pb-1">
                             <div class="table-responsive">
-                                <table id="dtCtrData" class="table table-hover table-striped mb-0 display responsive" style="width: 100%">
+                                <table id="dtUsmData" class="table table-hover table-striped mb-0 display responsive" style="width: 100%">
                                     <thead>
                                     <tr class="th-strong">
                                         <th style="width: 20px">#</th>
-                                        <th style="width: 115px; min-width: 115px">No Tender</th>
-                                        <th style="width: 115px; min-width: 115px">No Kontrak</th>
-                                        <th>Nama Kontrak</th>
-                                        <th>Nilai Had Bumbung</th>
-                                        <th>Nilai Setahun Had Bumbung (CM)</th>
-                                        <th>Nilai Setahun Had Bumbung (PM)</th>
-                                        <th>Nilai Setahun Had Bumbung (Mandays)</th>
-                                        <th>Nilai Setahun Had Bumbung (Lesen)</th>
-                                        <th>Tempoh Dari</th>
-                                        <th>Tempoh Hingga</th>
-                                        <th>Bon Perlaksanaan</th>
-                                        <th>SLA</th>
-                                        <th>Jaminan</th>
-                                        <th>Syarikat</th>
-                                        <th>Alamat Syarikat</th>
-                                        <th>Project Manager</th>
-                                        <th>Direkod Oleh</th>
-                                        <th>Masa Dicipta</th>
-                                        <th>Masa Dikemaskini</th>
-                                        <th style="width: 100px">Status</th>
+                                        <th>Nama</th>
+                                        <th>ID Pengguna</th>
+                                        <th>No Telefon</th>
+                                        <th>Emel</th>
+                                        <th>Jabatan</th>
+                                        <th>Peranan</th>
+                                        <th>Kontrak</th>
+                                        <th>Peranan</th>
+                                        <th>Kontrak</th>
+                                        <th>Masa Didaftarkan</th>
+                                        <th>Masa Log Masuk</th>
+                                        <th>Status</th>
                                     </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -200,15 +183,10 @@
             </div>
         </section>
 
-        <div class="includeHtml" id="h-s-section_contract"></div>
     </div>
     <div class="includeHtml" id="h-m-modal_profile"></div>
     <div class="includeHtml" id="h-m-modal_change_password"></div>
-    <div class="includeHtml" id="h-m-modal_pdf"></div>
-    <div class="includeHtml" id="h-m-modal_confirm_delete"></div>
-    <div class="includeHtml" id="h-m-modal_contract_sla"></div>
-    <div class="includeHtml" id="h-m-modal_contract_claim"></div>
-    <div class="includeHtml" id="h-m-modal_contract_claim_sub"></div>
+    <div class="includeHtml" id="h-m-modal_user"></div>
 </main>
 
 <!-- SCRIPTS -->
@@ -233,25 +211,21 @@
 <script type="text/javascript" src="js/vendor/datatables/js/pdfmake.min.js"></script>
 <script type="text/javascript" src="js/vendor/datatables/js/vfs_fonts.js"></script>
 <!-- Highchart -->
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/highcharts-more.js"></script>
-<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-<script src="https://code.highcharts.com/modules/bullet.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script type="text/javascript" src="js/vendor/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="js/vendor/highcharts/highcharts-more.js"></script>
+<script type="text/javascript" src="js/vendor/highcharts/modules/exporting.js"></script>
+<script type="text/javascript" src="js/vendor/highcharts/modules/export-data.js"></script>
+<script type="text/javascript" src="js/vendor/highcharts/modules/data.js"></script>
+<script type="text/javascript" src="js/vendor/highcharts/modules/drilldown.js"></script>
+<script type="text/javascript" src="js/vendor/highcharts/themes/sand-signika.js"></script>
 
 <!--Custom scripts-->
 <script type="text/javascript">
     document.write('<scr' + 'ipt src="js/common.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
 
     let versionLocal_;
-    let modalConfirmDeleteClass_;
-    let modalContractSlaClass_;
-    let modalContractClaimClass_;
-    let modalContractClaimSubClass_;
-    let sectionContractClass_;
-    let contractClass_;
+    let modalUserClass_;
+    let userManagementClass_;
 
     document.addEventListener('DOMContentLoaded', function () {
 
@@ -261,36 +235,26 @@
                 initiatePages();
                 moment.locale('ms');
 
-                modalConfirmDeleteClass_ = new ModalConfirmDelete();
-                modalContractSlaClass_ = new ModalContractSla();
-                modalContractClaimClass_ = new ModalContractClaim();
-                modalContractClaimSubClass_ = new ModalContractClaimSub();
-                sectionContractClass_ = new SectionContract();
-                contractClass_ = new MainContract();
+                const refStatus_ = mzGetLocalArray('kontrak_status', versionLocal_, 'statusId')
+                const refRole_ = mzGetLocalArray('kontrak_role', versionLocal_, 'roleId');
+                const refGroup_ = mzGetLocalArray('kontrak_group', versionLocal_, 'groupId');
+                const refContract_ = mzGetLocalArray('kontrak_contract', versionLocal_, 'contractId', [], 'contract');
 
-                const refStatus_ = mzGetLocalArray('kontrak_status', versionLocal_, 'statusId');
+                modalUserClass_ = new ModalUser();
+                userManagementClass_ = new MainUserManagement();
 
-                modalContractSlaClass_.setModalConfirmDeleteClass(modalConfirmDeleteClass_);
-                modalContractSlaClass_.setClassFrom(sectionContractClass_);
-                modalContractSlaClass_.init();
+                modalUserClass_.setRefGroup(refGroup_);
+                modalUserClass_.setRefRole(refRole_);
+                modalUserClass_.setRefContract(refContract_);
+                modalUserClass_.setClassFrom(userManagementClass_);
+                modalUserClass_.init();
 
-                modalContractClaimSubClass_.setModalConfirmDeleteClass(modalConfirmDeleteClass_);
-                modalContractClaimSubClass_.init();
-
-                modalContractClaimClass_.setModalConfirmDeleteClass(modalConfirmDeleteClass_);
-				modalContractClaimClass_.setModalContractClaimSubClass(modalContractClaimSubClass_);
-                modalContractClaimClass_.setClassFrom(sectionContractClass_);
-                modalContractClaimClass_.init();
-
-                sectionContractClass_.setModalContractSlaClass(modalContractSlaClass_);
-                sectionContractClass_.setModalContractClaimClass(modalContractClaimClass_);
-                sectionContractClass_.setModalContractClaimSubClass(modalContractClaimSubClass_);
-                sectionContractClass_.setClassFrom(contractClass_);
-                sectionContractClass_.init();
-
-                contractClass_.setRefStatus(refStatus_);
-                contractClass_.setSectionContractClass(sectionContractClass_);
-                contractClass_.init();
+                userManagementClass_.setRefStatus(refStatus_);
+                userManagementClass_.setRefRole(refRole_);
+                userManagementClass_.setRefGroup(refGroup_);
+                userManagementClass_.setRefContract(refContract_);
+                userManagementClass_.setModalUserClass(modalUserClass_);
+                userManagementClass_.init();
             } catch (e) {
                 toastr['error'](e.message, _ALERT_TITLE_ERROR);
             }
@@ -301,11 +265,7 @@
 
     document.write('<scr' + 'ipt src="js/pages/modals/modal_profile.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
     document.write('<scr' + 'ipt src="js/pages/modals/modal_change_password.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
-    document.write('<scr' + 'ipt src="js/pages/modals/modal_confirm_delete.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
-    document.write('<scr' + 'ipt src="js/pages/modals/modal_contract_sla.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
-    document.write('<scr' + 'ipt src="js/pages/modals/modal_contract_claim.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
-    document.write('<scr' + 'ipt src="js/pages/modals/modal_contract_claim_sub.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
-    document.write('<scr' + 'ipt src="js/pages/sections/section_contract.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
-    document.write('<scr' + 'ipt src="js/pages/mains/main_contract.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+    document.write('<scr' + 'ipt src="js/pages/modals/modal_user.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+    document.write('<scr' + 'ipt src="js/pages/mains/main_user_management.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
 
 </script>

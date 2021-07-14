@@ -49,10 +49,15 @@ try {
 
     if ('GET' === $request_method) {
         if (isset ($urlArr[1])) {
-            $fn_contract->__set('contractId', $urlArr[1]);
-            $result = $fn_contract->get_contract();
+            if ($urlArr[1] === 'full_list') {
+                $result = $fn_contract->getContractFullList();
+            } else if ($urlArr[1] === 'full_details') {
+                $result = $fn_contract->getContractFull($urlArr[1]);
+            } else {
+                $result = $fn_contract->getContract($urlArr[1]);
+            }
         } else {
-            $result = $fn_contract->get_contract_list();
+            $result = $fn_contract->getContractList();
         }
         $form_data['result'] = $result;
         $form_data['success'] = true;
@@ -62,7 +67,7 @@ try {
         $is_transaction = true;
         $param = $_POST;
 
-        $fn_contract->add_contract($userId);
+        $result = $fn_contract->addContract($userId);
 
         Class_db::getInstance()->db_commit();
         $form_data['result'] = $result;
@@ -76,7 +81,7 @@ try {
 
         if (isset ($urlArr[1])) {
             $fn_contract->__set('contractId', $urlArr[1]);
-            $fn_contract->update_contract($params);
+            $fn_contract->updateContract($params);
             $form_data['errmsg'] = $constant::SUC_CONTRACT_UPDATE;
         } else {
             throw new Exception('[' . __LINE__ . '] - Wrong Request Method');
@@ -94,7 +99,7 @@ try {
             throw new Exception('[' . __LINE__ . '] - Inspection Checklist Id empty');
         }
         $fn_contract->__set('contractId', $urlArr[1]);
-        $fn_contract->delete_contract();
+        $fn_contract->deleteContract();
         $form_data['errmsg'] = $constant::SUC_CONTRACT_DELETE;
 
         Class_db::getInstance()->db_commit();

@@ -436,8 +436,13 @@ function MzValidate(name) {
         $.each(arrFields, function (n, u) {
             if (u.field_id === fieldId) {
                 u.enabled = false;
-                $('#' + fieldId).removeClass('invalid');
-                $('#' + fieldId + 'Err').html('');
+                if (u.type === 'check') {
+                    $("input[name='"+fieldId+"']:checkbox").removeClass('invalid');
+                    $('#' + fieldId.substr(0, fieldId.length-2) + 'Err').html('');
+                } else {
+                    $('#' + fieldId).removeClass('invalid');
+                    $('#' + fieldId + 'Err').html('');
+                }
                 return false;
             }
         });

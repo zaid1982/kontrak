@@ -304,6 +304,7 @@ class Class_login {
             $result['menu'] = $this->get_menu_list($arr_roles);
             unset($result['userPassword']);
             unset($result['userPasswordTemp']);
+            Class_db::getInstance()->db_update('sys_user', array('user_time_login'=>'Now()'), array('user_id'=>$userId));
 
             return $result;
         }

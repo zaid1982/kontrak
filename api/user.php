@@ -48,7 +48,29 @@ try {
     }
 
     if ('GET' === $request_method) {
-        $result = $fn_user->get_user_list();
+        if (isset ($urlArr[1])) {
+            if ($urlArr[1] === 'full_list') {
+                $result = $fn_user->getUserFullList();
+            } else if ($urlArr[1] === 'full_details') {
+                $result = $fn_user->getUserFull($urlArr[2]);
+            } else {
+                $result = $fn_user->getUser($urlArr[1]);
+            }
+        } else {
+            $result = $fn_user->getUserList();
+        }
+        $form_data['result'] = $result;
+        $form_data['success'] = true;
+    }
+    else if ('POST' === $request_method) {
+        $param = $_POST;
+
+        Class_db::getInstance()->db_beginTransaction();
+        $is_transaction = true;
+        $result = $fn_user->addUser($param['user'], $param['roleList'], $param['contractList']);
+        $form_data['errmsg'] = $constant::SUC_USER_ADD;
+        Class_db::getInstance()->db_commit();
+
         $form_data['result'] = $result;
         $form_data['success'] = true;
     }

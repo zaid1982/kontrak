@@ -82,7 +82,7 @@ function MainContract () {
             ShowLoader();
             setTimeout(function () {
                 try {
-                    //self.genTableCtr();
+                    self.genTable();
                 } catch (e) {
                     toastr['error'](e.message, _ALERT_TITLE_ERROR);
                 }
@@ -102,7 +102,7 @@ function MainContract () {
             }, 200);
         });
 
-        self.genTableCtr();
+        self.genTable();
     };
 
     this.getClassName = function () {
@@ -111,7 +111,7 @@ function MainContract () {
 
     this.showMain = function () {
         $('.sectionCtrMain').show();
-        self.genTableCtr();
+        self.genTable();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
@@ -119,8 +119,8 @@ function MainContract () {
         $('.sectionCtrMain').hide();
     };
 
-    this.genTableCtr = function () {
-        const data = mzAjaxRequest('contract', 'GET');
+    this.genTable = function () {
+        const data = mzAjaxRequest('contract/full_list', 'GET');
         oTableCtr.clear().rows.add(data);
         oTableCtr.search('').columns().search('').draw();
     };
