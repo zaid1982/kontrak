@@ -92,7 +92,8 @@ try {
                 $fn_user->change_password($param, true);
                 $form_data['errmsg'] = $constant::SUC_ACTIVATED;
             } else {
-                throw new Exception('[' . __LINE__ . '] - Wrong Request Method');
+                $fn_user->updateUser($urlArr[1], $param['user'], $param['roleList'], $param['contractList']);
+                $form_data['errmsg'] = $constant::SUC_USER_UPDATE;
             }
         } else {
             throw new Exception('[' . __LINE__ . '] - Wrong Request Method');

@@ -110,7 +110,7 @@ class Class_contract_claim
             $contract = Class_db::getInstance()->db_select_single('t_contract', array('contract_id'=>$contractId), null, 1);
             if ($claimType === 'all') {
                 $ceiling = floatval($contract['contractCeiling']);
-                $ceilingYear = $ceiling / intval($contract['contractPeriodYear']);
+                $ceilingYear = $contract['contractPeriodYear'] !== '' ? $ceiling / intval($contract['contractPeriodYear']) : '';
                 $contractClaims = Class_db::getInstance()->db_select('t_contract_claim', array('contract_id'=>$contractId), 'contract_claim_invoice_date');
             } else {
                 if ($claimType === 'CM') {

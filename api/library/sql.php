@@ -121,7 +121,8 @@ class Class_sql
                     user_first_name AS contractCreatedByName
                 FROM t_contract
                 LEFT JOIN t_contract_sla ON t_contract_sla.contract_id = t_contract.contract_id
-                LEFT JOIN sys_user ON sys_user.user_id = t_contract.contract_created_by";
+                LEFT JOIN sys_user ON sys_user.user_id = t_contract.contract_created_by
+                GROUP BY t_contract.contract_id";
             } else if ($title === 'vw_contract_claim_sub_by_contract') {
                 $sql = "SELECT 
                     t_contract_claim_sub.*,

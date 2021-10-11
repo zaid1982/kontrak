@@ -448,6 +448,44 @@ class Class_user {
     }
 
     /**
+     * @param $userId
+     * @param array $params
+     * @param $roleList
+     * @param array $contractList
+     * @return void
+     * @throws Exception
+     */
+    public function updateUser($userId, $params, $roleList, $contractList=array()) {
+        try {
+            $this->fn_general->log_debug(__CLASS__, __FUNCTION__, __LINE__, 'Entering '.__FUNCTION__);
+
+            $this->fn_general->checkEmptyParams(array($userId, $params, $roleList));
+            $this->fn_general->checkEmptyParamsArray($params, array('userName', 'userPasswordTemp', 'userFirstName', 'userEmail', 'userContactNo', 'groupId'));
+
+            if (Class_db::getInstance()->db_count('sys_user', array('user_name'=>$params['userName'], 'user_id'=>'<>'.$userId)) > 0) {
+                throw new Exception('[' . __LINE__ . '] - ID Log Masuk telah sedia ada dalam sistem. Sila pilih ID Log Masuk yang lain.', 31);
+            }
+
+            $params['userPassword'] = md5($params['userPasswordTemp']);
+            Class_db::getInstance()->db_update('sys_user', $this->fn_general->convertToMysqlArrAll($params), array('user_id'=>$userId));
+
+            Class_db::getInstance()->db_delete('sys_user_role', array('user_id'=>$userId));
+            foreach ($roleList as $roleId) {
+                Class_db::getInstance()->db_insert('sys_user_role', array('user_id'=>$userId, 'group_id'=>$params['groupId'], 'role_id'=>$roleId));
+            }
+
+            Class_db::getInstance()->db_delete('t_contract_user', array('user_id'=>$userId));
+            foreach ($contractList as $contractId) {
+                Class_db::getInstance()->db_insert('t_contract_user', array('user_id'=>$userId, 'contract_id'=>$contractId));
+            }
+        }
+        catch (Exception $ex) {
+            $this->fn_general->log_error(__CLASS__, __FUNCTION__, __LINE__, $ex->getMessage());
+            throw new Exception($this->get_exception('0005', __FUNCTION__, __LINE__, $ex->getMessage()), $ex->getCode());
+        }
+    }
+
+    /**
      * @return array
      * @throws Exception
      */

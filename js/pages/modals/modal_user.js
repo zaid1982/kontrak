@@ -172,6 +172,41 @@ function ModalUser() {
                 }, 200);
             }
         });
+
+        $('#btnMusUpdate').on('click', function () {
+            if (!formValidate.validateNow()) {
+                toastr['error'](_ALERT_MSG_VALIDATION, _ALERT_TITLE_ERROR);
+            } else {
+                ShowLoader();
+                setTimeout(function () {
+                    try {
+                        mzCheckFuncParam(userId);
+                        const roleList = $.map($('input[name="chkMusRole[]"]:checked'), function(c){return c.value; });
+                        const contractList = $.map($('input[name="chkMusContract[]"]:checked'), function(c){return c.value; });
+                        const contractList2 = (jQuery.inArray('2', roleList) !== -1) ? contractList : [];
+                        const dataUser = {
+                            userName: $('#txtMusUserName').val(),
+                            userPasswordTemp: $('#txtMusUserPassword').val(),
+                            userFirstName: $('#txtMusUserFirstName').val(),
+                            userEmail: $('#txtMusUserEmail').val(),
+                            userContactNo: $('#txtMusUserContactNo').val(),
+                            groupId: $('#optMusGroup').val()
+                        };
+                        const data = {
+                            user: dataUser,
+                            roleList: roleList,
+                            contractList: contractList2
+                        };
+                        mzAjaxRequest('user/'+userId, 'PUT', data);
+                        classFrom.genTable();
+                        $('#modal_user').modal('hide');
+                    } catch (e) {
+                        toastr['error'](e.message, _ALERT_TITLE_ERROR);
+                    }
+                    HideLoader();
+                }, 200);
+            }
+        });
     };
 
     this.add = function () {
